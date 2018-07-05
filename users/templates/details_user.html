@@ -1,0 +1,83 @@
+{% extends 'users_template.html' %}
+
+{% block pagetitle %} User Profile Information {% endblock %}
+
+{% block stylesheets %}
+	{% load static %}
+	<!-- materialize style rules -->
+   <link href="{% static 'users/css/materialize.css' %}" rel="stylesheet"
+   type="text/css" />
+{% endblock %}
+
+{% block links %}
+	<li>
+		<a href="/users/">
+			User-Account Center
+		</a>
+	</li>
+	<li>
+		<a href="/quiz/">
+			Quiz Control Center
+		</a>
+	</li>
+{% endblock %}
+
+{% block hi %}
+Profile Terminal
+{% endblock %}
+
+{% block content %}
+
+	<h5>Your Profile Details</h5>
+
+	<table class="responsive-table highlight" >
+
+		<tbody>
+
+			<tr>
+				<td>First Name</td>
+				<td> {{ request.user.first_name }} </td>
+			</tr>
+			<tr>
+				<td>Last Name</td>
+				<td> {{ request.user.last_name }} </td>
+			</tr>
+			<tr>
+				<td>Username</td>
+				<td> {{ request.user.username }} </td>
+			</tr>
+			<tr>
+				<td>Profile Picture</td>
+				<td>
+					<img src="{{ request.user.user.pic.url }}" alt="Profile Image"
+					width="200px" height="200px"
+					style="border-radius: 50%;" />
+				</td>
+			</tr>
+			<tr>
+				<td>Email Address</td>
+				<td> {{ request.user.email }} </td>
+			</tr>
+			<tr>
+				<td>Account Type</td>
+				<td> {{ request.user.user.account_type }} </td>
+			</tr>
+			<tr>
+				<td>Biography</td>
+				<td> {{ request.user.user.bio }} </td>
+			</tr>
+			<tr>
+				<td colspan="2" style="text-align: right;" >
+					<a href="#">
+						<button class="btn btn-xs btn-info" >
+							Update Info
+						</button>
+					</a>
+				</td>
+			</tr>
+
+		</tbody>
+
+	</table>
+
+{% endblock %}

@@ -1,0 +1,189 @@
+/	quiz_site.views.indexView	site_index_link
+/admin/	django.contrib.admin.sites.index	admin:index
+/admin/<app_label>/	django.contrib.admin.sites.app_index	admin:app_list
+/admin/auth/group/	django.contrib.admin.options.changelist_view	admin:auth_group_changelist
+/admin/auth/group/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/auth/group/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:auth_group_change
+/admin/auth/group/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:auth_group_delete
+/admin/auth/group/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:auth_group_history
+/admin/auth/group/add/	django.contrib.admin.options.add_view	admin:auth_group_add
+/admin/auth/group/autocomplete/	django.contrib.admin.options.autocomplete_view	admin:auth_group_autocomplete
+/admin/auth/user/	django.contrib.admin.options.changelist_view	admin:auth_user_changelist
+/admin/auth/user/<id>/password/	django.contrib.auth.admin.user_change_password	admin:auth_user_password_change
+/admin/auth/user/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/auth/user/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:auth_user_change
+/admin/auth/user/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:auth_user_delete
+/admin/auth/user/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:auth_user_history
+/admin/auth/user/add/	django.contrib.auth.admin.add_view	admin:auth_user_add
+/admin/auth/user/autocomplete/	django.contrib.admin.options.autocomplete_view	admin:auth_user_autocomplete
+/admin/essay/essay_question/	django.contrib.admin.options.changelist_view	admin:essay_essay_question_changelist
+/admin/essay/essay_question/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/essay/essay_question/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:essay_essay_question_change
+/admin/essay/essay_question/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:essay_essay_question_delete
+/admin/essay/essay_question/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:essay_essay_question_history
+/admin/essay/essay_question/add/	django.contrib.admin.options.add_view	admin:essay_essay_question_add
+/admin/essay/essay_question/autocomplete/	django.contrib.admin.options.autocomplete_view	admin:essay_essay_question_autocomplete
+/admin/hitcount/blacklistip/	django.contrib.admin.options.changelist_view	admin:hitcount_blacklistip_changelist
+/admin/hitcount/blacklistip/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/hitcount/blacklistip/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:hitcount_blacklistip_change
+/admin/hitcount/blacklistip/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:hitcount_blacklistip_delete
+/admin/hitcount/blacklistip/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:hitcount_blacklistip_history
+/admin/hitcount/blacklistip/add/	django.contrib.admin.options.add_view	admin:hitcount_blacklistip_add
+/admin/hitcount/blacklistip/autocomplete/	django.contrib.admin.options.autocomplete_view	admin:hitcount_blacklistip_autocomplete
+/admin/hitcount/blacklistuseragent/	django.contrib.admin.options.changelist_view	admin:hitcount_blacklistuseragent_changelist
+/admin/hitcount/blacklistuseragent/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/hitcount/blacklistuseragent/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:hitcount_blacklistuseragent_change
+/admin/hitcount/blacklistuseragent/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:hitcount_blacklistuseragent_delete
+/admin/hitcount/blacklistuseragent/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:hitcount_blacklistuseragent_history
+/admin/hitcount/blacklistuseragent/add/	django.contrib.admin.options.add_view	admin:hitcount_blacklistuseragent_add
+/admin/hitcount/blacklistuseragent/autocomplete/	django.contrib.admin.options.autocomplete_view	admin:hitcount_blacklistuseragent_autocomplete
+/admin/hitcount/hit/	django.contrib.admin.options.changelist_view	admin:hitcount_hit_changelist
+/admin/hitcount/hit/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/hitcount/hit/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:hitcount_hit_change
+/admin/hitcount/hit/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:hitcount_hit_delete
+/admin/hitcount/hit/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:hitcount_hit_history
+/admin/hitcount/hit/add/	django.contrib.admin.options.add_view	admin:hitcount_hit_add
+/admin/hitcount/hit/autocomplete/	django.contrib.admin.options.autocomplete_view	admin:hitcount_hit_autocomplete
+/admin/hitcount/hitcount/	django.contrib.admin.options.changelist_view	admin:hitcount_hitcount_changelist
+/admin/hitcount/hitcount/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/hitcount/hitcount/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:hitcount_hitcount_change
+/admin/hitcount/hitcount/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:hitcount_hitcount_delete
+/admin/hitcount/hitcount/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:hitcount_hitcount_history
+/admin/hitcount/hitcount/add/	django.contrib.admin.options.add_view	admin:hitcount_hitcount_add
+/admin/hitcount/hitcount/autocomplete/	django.contrib.admin.options.autocomplete_view	admin:hitcount_hitcount_autocomplete
+/admin/jsi18n/	django.contrib.admin.sites.i18n_javascript	admin:jsi18n
+/admin/login/	django.contrib.admin.sites.login	admin:login
+/admin/logout/	django.contrib.admin.sites.logout	admin:logout
+/admin/multichoice/mcquestion/	django.contrib.admin.options.changelist_view	admin:multichoice_mcquestion_changelist
+/admin/multichoice/mcquestion/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/multichoice/mcquestion/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:multichoice_mcquestion_change
+/admin/multichoice/mcquestion/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:multichoice_mcquestion_delete
+/admin/multichoice/mcquestion/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:multichoice_mcquestion_history
+/admin/multichoice/mcquestion/add/	django.contrib.admin.options.add_view	admin:multichoice_mcquestion_add
+/admin/multichoice/mcquestion/autocomplete/	django.contrib.admin.options.autocomplete_view	admin:multichoice_mcquestion_autocomplete
+/admin/password_change/	django.contrib.admin.sites.password_change	admin:password_change
+/admin/password_change/done/	django.contrib.admin.sites.password_change_done	admin:password_change_done
+/admin/qa/answer/	django.contrib.admin.options.changelist_view	admin:qa_answer_changelist
+/admin/qa/answer/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/qa/answer/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:qa_answer_change
+/admin/qa/answer/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:qa_answer_delete
+/admin/qa/answer/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:qa_answer_history
+/admin/qa/answer/add/	django.contrib.admin.options.add_view	admin:qa_answer_add
+/admin/qa/answer/autocomplete/	django.contrib.admin.options.autocomplete_view	admin:qa_answer_autocomplete
+/admin/qa/answercomment/	django.contrib.admin.options.changelist_view	admin:qa_answercomment_changelist
+/admin/qa/answercomment/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/qa/answercomment/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:qa_answercomment_change
+/admin/qa/answercomment/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:qa_answercomment_delete
+/admin/qa/answercomment/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:qa_answercomment_history
+/admin/qa/answercomment/add/	django.contrib.admin.options.add_view	admin:qa_answercomment_add
+/admin/qa/answercomment/autocomplete/	django.contrib.admin.options.autocomplete_view	admin:qa_answercomment_autocomplete
+/admin/qa/answervote/	django.contrib.admin.options.changelist_view	admin:qa_answervote_changelist
+/admin/qa/answervote/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/qa/answervote/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:qa_answervote_change
+/admin/qa/answervote/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:qa_answervote_delete
+/admin/qa/answervote/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:qa_answervote_history
+/admin/qa/answervote/add/	django.contrib.admin.options.add_view	admin:qa_answervote_add
+/admin/qa/answervote/autocomplete/	django.contrib.admin.options.autocomplete_view	admin:qa_answervote_autocomplete
+/admin/qa/question/	django.contrib.admin.options.changelist_view	admin:qa_question_changelist
+/admin/qa/question/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/qa/question/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:qa_question_change
+/admin/qa/question/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:qa_question_delete
+/admin/qa/question/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:qa_question_history
+/admin/qa/question/add/	django.contrib.admin.options.add_view	admin:qa_question_add
+/admin/qa/question/autocomplete/	django.contrib.admin.options.autocomplete_view	admin:qa_question_autocomplete
+/admin/qa/questioncomment/	django.contrib.admin.options.changelist_view	admin:qa_questioncomment_changelist
+/admin/qa/questioncomment/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/qa/questioncomment/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:qa_questioncomment_change
+/admin/qa/questioncomment/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:qa_questioncomment_delete
+/admin/qa/questioncomment/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:qa_questioncomment_history
+/admin/qa/questioncomment/add/	django.contrib.admin.options.add_view	admin:qa_questioncomment_add
+/admin/qa/questioncomment/autocomplete/	django.contrib.admin.options.autocomplete_view	admin:qa_questioncomment_autocomplete
+/admin/quiz/category/	django.contrib.admin.options.changelist_view	admin:quiz_category_changelist
+/admin/quiz/category/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/quiz/category/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:quiz_category_change
+/admin/quiz/category/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:quiz_category_delete
+/admin/quiz/category/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:quiz_category_history
+/admin/quiz/category/add/	django.contrib.admin.options.add_view	admin:quiz_category_add
+/admin/quiz/category/autocomplete/	django.contrib.admin.options.autocomplete_view	admin:quiz_category_autocomplete
+/admin/quiz/progress/	django.contrib.admin.options.changelist_view	admin:quiz_progress_changelist
+/admin/quiz/progress/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/quiz/progress/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:quiz_progress_change
+/admin/quiz/progress/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:quiz_progress_delete
+/admin/quiz/progress/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:quiz_progress_history
+/admin/quiz/progress/add/	django.contrib.admin.options.add_view	admin:quiz_progress_add
+/admin/quiz/progress/autocomplete/	django.contrib.admin.options.autocomplete_view	admin:quiz_progress_autocomplete
+/admin/quiz/quiz/	django.contrib.admin.options.changelist_view	admin:quiz_quiz_changelist
+/admin/quiz/quiz/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/quiz/quiz/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:quiz_quiz_change
+/admin/quiz/quiz/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:quiz_quiz_delete
+/admin/quiz/quiz/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:quiz_quiz_history
+/admin/quiz/quiz/add/	django.contrib.admin.options.add_view	admin:quiz_quiz_add
+/admin/quiz/quiz/autocomplete/	django.contrib.admin.options.autocomplete_view	admin:quiz_quiz_autocomplete
+/admin/quiz/subcategory/	django.contrib.admin.options.changelist_view	admin:quiz_subcategory_changelist
+/admin/quiz/subcategory/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/quiz/subcategory/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:quiz_subcategory_change
+/admin/quiz/subcategory/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:quiz_subcategory_delete
+/admin/quiz/subcategory/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:quiz_subcategory_history
+/admin/quiz/subcategory/add/	django.contrib.admin.options.add_view	admin:quiz_subcategory_add
+/admin/quiz/subcategory/autocomplete/	django.contrib.admin.options.autocomplete_view	admin:quiz_subcategory_autocomplete
+/admin/r/<int:content_type_id>/<path:object_id>/	django.contrib.contenttypes.views.shortcut	admin:view_on_site
+/admin/taggit/tag/	django.contrib.admin.options.changelist_view	admin:taggit_tag_changelist
+/admin/taggit/tag/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/taggit/tag/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:taggit_tag_change
+/admin/taggit/tag/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:taggit_tag_delete
+/admin/taggit/tag/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:taggit_tag_history
+/admin/taggit/tag/add/	django.contrib.admin.options.add_view	admin:taggit_tag_add
+/admin/taggit/tag/autocomplete/	django.contrib.admin.options.autocomplete_view	admin:taggit_tag_autocomplete
+/admin/true_false/tf_question/	django.contrib.admin.options.changelist_view	admin:true_false_tf_question_changelist
+/admin/true_false/tf_question/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/true_false/tf_question/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:true_false_tf_question_change
+/admin/true_false/tf_question/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:true_false_tf_question_delete
+/admin/true_false/tf_question/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:true_false_tf_question_history
+/admin/true_false/tf_question/add/	django.contrib.admin.options.add_view	admin:true_false_tf_question_add
+/admin/true_false/tf_question/autocomplete/	django.contrib.admin.options.autocomplete_view	admin:true_false_tf_question_autocomplete
+/admin/users/profilemodel/	django.contrib.admin.options.changelist_view	admin:users_profilemodel_changelist
+/admin/users/profilemodel/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/users/profilemodel/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:users_profilemodel_change
+/admin/users/profilemodel/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:users_profilemodel_delete
+/admin/users/profilemodel/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:users_profilemodel_history
+/admin/users/profilemodel/add/	django.contrib.admin.options.add_view	admin:users_profilemodel_add
+/admin/users/profilemodel/autocomplete/	django.contrib.admin.options.autocomplete_view	admin:users_profilemodel_autocomplete
+/glyphicon/	quiz_site.views.glyphiconView	glyphicon_link
+/media\/<path>	django.views.static.serve
+/qa/	qa.views.QuestionIndexView	qa_index
+/qa/answer/<question_id>/	qa.views.CreateAnswerView	qa_create_answer
+/qa/answer/edit/<answer_id>/	qa.views.UpdateAnswerView	qa_update_answer
+/qa/comment-answer/<answer_id>/	qa.views.CreateAnswerCommentView	qa_create_answer_comment
+/qa/comment-answer/edit/<comment_id>/	qa.views.UpdateAnswerCommentView	qa_update_answer_comment
+/qa/comment-question/<question_id>/	qa.views.CreateQuestionCommentView	qa_create_question_comment
+/qa/comment-question/edit/<comment_id>/	qa.views.UpdateQuestionCommentView	qa_update_question_comment
+/qa/edit-question/<question_id>/	qa.views.UpdateQuestionView	qa_update_question
+/qa/hitcount/hit/ajax/	hitcount.views.HitCountJSONView	hitcount:hit_ajax
+/qa/markdown/preview/	django_markdown.views.preview	django_markdown_preview
+/qa/new-question/	qa.views.CreateQuestionView	qa_create_question
+/qa/profile/<user_id>/	qa.views.profile	qa_profile
+/qa/question/<pk>/	qa.views.QuestionDetailView	qa_detail
+/qa/question/<pk>/<slug>/	qa.views.QuestionDetailView	qa_detail
+/qa/question/answer/<answer_id>/	qa.views.AnswerQuestionView	qa_answer_question
+/qa/question/close/<question_id>/	qa.views.CloseQuestionView	qa_close_question
+/qa/search/	qa.views.QuestionsSearchView	qa_search
+/qa/tag/<tag>/	qa.views.QuestionsByTagView	qa_tag
+/qa/vote/answer/<object_id>/	qa.views.AnswerVoteView	qa_answer_vote
+/qa/vote/question/<object_id>/	qa.views.QuestionVoteView	qa_question_vote
+/quiz/	quiz.views.homeView	quiz_home
+/quiz/<quiz_name>/take/	quiz.views.QuizTake	quiz_question
+/quiz/<slug>/	quiz.views.QuizDetailView	quiz_start_page
+/quiz/category/	quiz.views.CategoriesListView	quiz_category_list_all
+/quiz/category/<category_name>/	quiz.views.ViewQuizListByCategory	quiz_category_list_matching
+/quiz/marking/	quiz.views.QuizMarkingList	quiz_marking
+/quiz/marking/<pk>/	quiz.views.QuizMarkingDetail	quiz_marking_detail
+/quiz/pdf/	quiz.views.pdfView	pdf_link
+/quiz/progress/	quiz.views.QuizUserProgressView	quiz_progress
+/quiz/quiz-list/	quiz.views.QuizListView	quiz_index
+/users/	users.views.indexView	users_index_link
+/users/login/	users.views.loginView	users_login_link
+/users/logout/	users.views.logoutFunctionView	users_logout_link
+/users/pdf/	users.views.pdfView	pdf_link
+/users/profile_details/	users.views.profileView	profile_details_link
+/users/register/	users.views.registerView	users_register_link
+/users/testpage/	users.views.testView	test_link

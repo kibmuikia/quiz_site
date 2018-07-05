@@ -1,0 +1,28 @@
+{# load the tag library - hiyo ya django-bootstrap4 #}
+{# load-bootstrap4 #}
+
+
+{# load the tag library - hiyo ya django-bootstrap3 #}
+{% load bootstrap3 %}
+
+{# weka css na js ya bootstrap #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='slim' %}
+
+{# hizo django.contrib.messages, display them as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+{# sasa display form #}
+<form method="POST" action="" class="form" >
+
+	{% csrf_token %}
+
+	{% bootstrap_form testform %}
+
+	{% buttons %}
+		<button type="submit" class="btn btn-primary" >
+			{% bootstrap_icon 'star' %} Tuma Hii Shit
+		</button>
+	{% endbuttons %}
+
+</form>

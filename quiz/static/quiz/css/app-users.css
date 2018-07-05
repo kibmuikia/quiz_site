@@ -1,0 +1,17 @@
+// style rules for [ 'users_template.html', 'site_users_index.html' ]
+
+section.header_nav{
+	height: 5vh;
+}
+
+section.sect_main {
+	height: auto; min-height: 85vh;
+	//overflow: auto;
+	margin-bottom: 10px; margin-top: 5px;
+	background-color: whitesmoke;
+	padding-top: 2%; padding-bottom: 1.50001%;
+}
+
+section.sect_footer {
+	height: 5vh;
+}

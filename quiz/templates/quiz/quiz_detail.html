@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block title %}
+	{{ quiz.title }}
+{% endblock %}
+
+{% block hi %}
+	All-Quizzes <small>Hub</small>
+{% endblock %}
+
+{% block content %}
+
+	<h3 class="grey-text text-darken-2 center">Title: <i>{{ quiz.title }}</i> </h3>
+
+	<h4 class=""> {% trans "Category" %}: {{ quiz.category }} </h4>
+
+	{% if quiz.single_attempt %}
+	  <h5> {% trans "You will only get one attempt at this quiz" %}. </h5>
+	{% endif %}
+
+	<p class=""> {{ quiz.description }} </p>
+
+	<p class="center">
+	  <a href="{% url 'quiz_question' quiz_name=quiz.url %}">
+		<button class="btn-large green accent-3 black-text">
+			{% trans "Start quiz" %}
+		</button>
+	  </a>
+	</p>
+
+{% endblock %}

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" >
+{% load staticfiles %}
+
+<head>
+
+	<meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+   <meta name="description" content="The main root-base-template" />
+   <meta name="author" content="kibuthi.A" />
+
+	<title>{% block pagetitle %} <!-- page-title --> {% endblock %} </title>
+
+	<!-- kuweka the bootstrap-core-css -->
+   <link href="{% static 'users/css/bootstrap.min-3.3.6.css' %}" rel="stylesheet"
+   type="text/css" />
+
+   <!-- kuweka the glyphicon-support-css, since bootstrap4 ilitoa support
+   <link href="{% static 'users/css/glyphicons.css' %}" rel="stylesheet"
+   type="text/css" />-->
+
+   <!-- style-rules ya the sidebar look -->
+   <link href="{% static 'users/css/simple-sidebar.css' %}" rel="stylesheet"
+   type="text/css" />
+
+   <!-- style-rules ya app[users] -->
+   <link href="{% static 'users/css/app-users.css' %}" rel="stylesheet"
+   type="text/css" />
+
+   <!-- materialize style rules -->
+   <link href="{% static 'users/css/materialize.css' %}" rel="stylesheet"
+   type="text/css" />
+
+   <!-- material-icons.css -->
+   <link rel="stylesheet" type="text/css" 
+   href="{% static 'users/css/material-icons.css' %}" />
+
+   {% block stylesheets %}
+      <!-- additional stylesheets -->
+   {% endblock %}
+
+</head>
+
+<body>
+
+	<div id="wrapper" >
+
+		<!-- segment ya Sidebar -->
+      <div id="sidebar-wrapper">
+
+      	<ul class="sidebar-nav">
+
+      		<li class="sidebar-brand" >
+      			<a href="/">
+                  <span class="glyphicon glyphicon-home" ></span>
+                  Quiz Site
+      			</a>
+      		</li>
+      		{% block links %}<!-- add links here -->{% endblock %}
+
+      	</ul><!-- end : .sidebar-nav -->
+
+      </div><!-- end : #sidebar-wrapper -->
+
+      <!-- segment ya the : Page-content -->
+      <div id="page-content-wrapper">
+
+      	<div class="container-fluid">
+
+      		<section class="header_nav" id="headernavbar">
+               <!--<div class="container" >-->
+                  <div class="row" >
+
+                     <div class="col-md-2" >
+                        <button id="togglebtn"
+                        class="btn-floating toggle-side pulse grey" >
+                           <!-- btn btn-sm Menu -->
+                           <i class="glyphicon glyphicon-list"></i>
+                        </button>
+                     </div>
+
+                     <div class="col-md-8" >
+                        <h1>
+                           {% block hi %} <!-- welcome text --> {% endblock %}
+                        </h1>
+                     </div>
+
+                     <div class="col-md-2" >
+                        <p>
+                           [ <b> {{ request.user }} </b> ]
+                           {% if request.user.is_authenticated %}
+                           <br />
+                           <a href="{% url 'users_logout_link' %}">
+                              <button class="btn btn-sm btn-danger" >
+                                 Logout
+                              </button>
+                           </a>
+                           {% endif %}
+                        </p>
+                        {% if message %}
+                        <p>
+                           <b>Message:</b><br />
+                           {{ message }}
+                        </p>
+                        {% endif %}
+                        {% if site_message %}
+                        <p>
+                           <b>Site-message:</b><br />
+                           {{ site_message }}
+                        </p>
+                        {% endif %}
+                     </div>
+
+                  </div>
+               <!--</div>-->
+            </section><!-- end: .header_nav -->
+
+            {% load static %}
+            <section class="sect_main" 
+            style="background-image: url('{% static 'users/images/comp_archi_poster.png' %}'); background-position: center;">
+               <!--<div class="container" >-->
+                  <div class="row" >
+
+                     <div class="col m12">
+                        {% block content %}
+                           <!-- page content goes here -->
+                        {% endblock %}
+                     </div>
+
+                  </div>
+               <!--</div>-->
+            </section><!-- end: .sect_main -->
+
+            <section class="sect_footer" >
+               <div class="container" >
+                  <div class="row" >
+
+                     <div class="col-md-2" >
+                        <a href="#page-content-wrapper" 
+                        class="btn-floating brown lighten-2 z-depth-2">
+                           <i 
+                           class="glyphicon glyphicon-chevron-up grey-text text-darken-3">
+                              <!---->
+                           </i>
+                        </a>
+                     </div>
+
+                     <div class="col-md-8" >
+                        <h5>Developed By Kibuthi</h5>
+                     </div>
+
+                     <div class="col-md-2" >
+                        <a href="#page-content-wrapper" 
+                        class="btn-floating brown lighten-2 z-depth-2">
+                           <i class="glyphicon glyphicon-chevron-up grey-text text-darken-3"></i>
+                        </a>
+                     </div>
+
+                  </div>
+               </div>
+            </section><!-- end: .sect_footer -->
+
+      	</div><!-- end : .container-fluid -->
+
+      </div><!-- end : #page-content-wrapper -->
+
+	</div><!-- end : #wrapper -->
+
+	<!-- files za jquery, bootstrap-bundle-min -->
+   <script src="{% static 'users/js/jquery-3.3.1.min.js' %}"></script>
+   <script src="{% static 'users/js/bootstrap.min-4.0.0.js' %}"></script>
+   <script src="{% static 'users/js/bootstrap.bundle.min.js' %}"></script>
+   <script src="{% static 'quiz/js/materialize.js' %}"></script>
+   <script>
+
+   	var sideToggle = $( '.toggle-side' ),
+   	orginal_toggle = $( '#menu-toggle' ),
+      toggleMenuBtn = $( '#togglebtn' );
+
+   	$( sideToggle ).click( function(e) {
+   		e.preventDefault();
+   		$("#wrapper").toggleClass("toggled");
+         toggleMenuBtn.toggleClass( "pulse" );
+   	} );
+
+   </script>
+
+</body>
+
+</html>

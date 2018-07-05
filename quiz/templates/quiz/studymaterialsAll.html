@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block title %} StudyMaterials Home Page {% endblock %}
+
+{% block links %}
+{% endblock %}
+
+{% block hi %}
+	Study Materials <small> Control Center </small>
+{% endblock %}
+
+{% block content %}
+	
+	<h5>We recommend the following study resources as you undertake this course:</h5>
+	
+	<div class="divider"></div>
+
+	<div class="row">
+
+		<div class="col m5">			
+			<div class="card hoverable">
+				<div class="card-image waves-effect waves-block waves-light">
+					{% load static %}
+					<img class="activator" 
+					src="{% static 'users/images/comp_archi_by_mano_cover_page.jpg' %}" 
+					alt="resource_one_image">
+				</div>
+				<div class="card-content">
+					<span class="card-title activator grey-text text-darken-4">
+						Computer System Architecture
+						<span class="right btn-floating pulse revealBtn">
+							<i class="">-:</i>
+						</span>
+						<br />
+						<p class="small center">
+							<a href="../../media/study/computer_system_architecture_mano.pdf" 
+							class="green-text text-darken-1">
+								Use Resource
+							</a>
+						</p>
+					</span>
+				</div>
+				<div class="card-reveal">
+					<span class="card-title grey-text text-darken-4">
+						Sneek Peek:
+						<i class="glyphicon glyphicon-remove right"></i>
+					</span>
+					<ul>
+						<li>
+							<p>
+								This study resource provides the basic know-how necessary to understand the hardware operation of digital computers.
+							</p>
+						</li>
+						<li>
+							<p>
+								It first presents the simpler concepts then gradually proceeds to the more complex matters of computers and their operations.
+							</p>
+						</li>
+						<li>
+							<h5>written by: <small>Morris Mano</small> </h5>
+						</li>
+					</ul>
+				</div>
+			</div><!-- card-:resource one -->
+		</div>
+
+		<div class="col m5">			
+			<div class="card hoverable">
+				<div class="card-image waves-effect waves-block waves-light">
+					{% load static %}
+					<img class="activator" 
+					src="{% static 'users/images/fundamental_comp_archi_cover_page.jpg' %}" 
+					alt="resource_one_image">
+				</div>
+				<div class="card-content">
+					<span class="card-title activator grey-text text-darken-4">
+						Fundamentals of Computer Architecture
+						<span class="right btn-floating pulse revealBtn">
+							<i class="">-:</i>
+						</span>
+						<br />
+						<p class="small center">
+							<a href="../../media/study/fundamentals_comp_org_archi.pdf" 
+							class="green-text text-darken-1">
+								Use Resource
+							</a>
+						</p>
+					</span>
+				</div>
+				<div class="card-reveal">
+					<span class="card-title grey-text text-darken-4">
+						Sneek Peek:
+						<i class="glyphicon glyphicon-remove right"></i>
+					</span>
+					
+					<ul>
+						<li>
+							<p>
+								This resource material provides a historical background on the evolution of cornerstone ideas in the computing industry.
+							</p>
+						</li>
+						<li>
+							<p>
+								It begins with the basic principles involved in instruction set architecture and design, as it gradually winds its way up to more complex matters.
+							</p>
+						</li>
+					</ul>
+
+				</div>
+			</div><!-- card-:resource one -->
+		</div>
+
+	</div>
+
+{% endblock %}
+
+{% block extraScripts %}
+	<script>
+		
+		var hoverableClass = $( '.hoverable' ),
+		revealBtn = $( '.revealBtn' );
+
+		hoverableClass.hover( function(e){
+			revealBtn.toggleClass( 'pulse' );
+		} );
+
+	</script>
+{% endblock %}

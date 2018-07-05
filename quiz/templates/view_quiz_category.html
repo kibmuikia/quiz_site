@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block title %}
+    {% trans "Quizzes related to" %} {{ category.category }}
+{% endblock %}
+
+{% block hi %}
+    Categories <small>Hub</small>
+{% endblock %}
+
+{% block content %}
+    <h4>
+        {% trans "Quizzes in the" %}
+        <strong>{{ category.category }} </strong>
+        {% trans "category" %}
+    </h4>
+
+    {% with object_list as quizzes %}
+
+    {% if quizzes %}
+        <ul>
+        {% for quiz in quizzes %}
+            <li>
+    		  <a href="{% url 'quiz_question' quiz_name=quiz.url %}">
+    			<button class="btn-large light-blue"><!-- green accent-3 -->
+                    {{ quiz.title }}             
+                </button>                
+    		  </a>
+    		</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>{% trans "There are no quizzes" %}</p>
+    {% endif %}
+
+    {% endwith %}
+
+{% endblock %}

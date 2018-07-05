@@ -1,0 +1,193 @@
+{% extends  'users_template.html' %}
+
+{% block pagetitle %} User-Account Center {% endblock %}
+
+{% block stylesheets %}
+	
+	{% load static %}
+	<!-- materialize style rules -->
+   <link href="{% static 'users/css/materialize.css' %}" rel="stylesheet"
+   type="text/css" />
+
+{% endblock %}
+
+{% block links %}
+	<li>
+		<a href="/admin/">
+			Admin Terminal
+		</a>
+	</li>
+	<li>
+		<a href="/users/">
+			Refresh Page
+		</a>
+	</li>
+	<li>
+		<a href="/quiz/">
+			Quiz Control Center
+		</a>
+	</li>
+
+	<!--
+	{% if request.user.is_authenticated %}
+	<li>
+		<a href="{% url 'users_logout_link' %}">
+			Logout
+		</a>
+	</li>
+	{% else %}
+	<li>
+		<a href="{% url 'users_login_link' %}">
+			Login
+		</a>
+	</li>
+	{% endif %}
+
+	<li>
+		<a href="{% url 'users_register_link' %}">
+			Register
+		</a>
+	</li>
+	<li>
+		<a href="{% url 'profile_details_link' %}">
+			Profile Details
+		</a>
+	</li>
+	-->
+
+{% endblock %}
+
+{% block hi %}
+Account Control
+{% endblock %}
+
+{% block content %}
+
+	{% if just_logged_in %}
+		<p>
+			Proceed To
+			<a href="{% url 'quiz_home' %}">
+				<button class="btn btn-primary" >
+					Quiz Center
+				</button>
+			</a>
+		</p>
+	{% endif %}
+
+	<div class="row">		
+		
+		{% if request.user.is_authenticated %}
+		<!-- LOGOUT stuff -->
+
+			<div class="col m4 offset-m2">
+				<div class="card hoverable">
+					<div class="card-image">
+						<img src="{{ request.user.user.pic.url }}" alt="Profile Image" 
+						height="250px" />
+						<span class="card-title">{{ request.user }}'s Profile</span>
+						<a href="{% url 'profile_details_link' %}"
+						class="btn-floating halfway-fab waves-effect waves-light blue">
+							<i class="glyphicon glyphicon-user"></i>
+						</a>
+					</div>
+					<div class="card-content">
+						<p>
+							View your profile information.
+						</p>
+						<p>
+							<i>
+								You can also update your information
+							</i>
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="col m4 offset-m1">
+				<div class="card hoverable">
+					<div class="card-content">
+						<span class="card-title">Logout</span>
+						<p>If you wish to logout, use the link below:</p>
+					</div>
+					<div class="card-action">
+						<a href="{% url 'users_logout_link' %}" 
+						class="btn-floating waves-effect waves-light red">
+							<i class="glyphicon glyphicon-arrow-right "></i>
+						</a>
+					</div>
+				</div><!-- end of CARD logout -->
+			</div>
+
+		{% else %}
+		<!-- LOGIN stuff -->
+			
+			<div class="col m6">
+				<div class="card hoverable" id="loginCard">
+					<div class="card-content">
+						<span class="card-title">Login</span>
+						<p>Use your credentials to access your account</p>
+					</div>
+					<div class="card-action">
+						<a href="{% url 'users_login_link' %}" class="btn-floating pulse"
+						id="loginCardLink">
+							<i class="glyphicon glyphicon-user"></i>
+						</a>
+					</div>
+				</div><!-- end of CARD login -->
+			</div>
+
+			<div class="col m6">
+				<div class="card hoverable">
+					<div class="card-content">
+						<span class="card-title">Register</span>
+						<p>
+							With the form provided, enter your valid details in order to gain an account.
+						</p>
+					</div>
+					<div class="card-action">
+						<a href="{% url 'users_register_link' %}" 
+						class="btn-floating waves-effect waves-light green">
+							<i class="glyphicon glyphicon-chevron-right"></i>
+							<!--<i class="glyphicon glyphicon-chevron-right"></i>-->
+						</a>
+					</div>
+				</div><!-- end of CARD register -->
+			</div>
+
+		{% endif %}
+
+	</div>	
+
+	<!--
+	<p>Current functionalities include:</p>
+	<ul style="list-style: lower-roman;" >
+		<li>Account Creation[ registration ]</li>
+		<li>Accessing Account[ login ]</li>
+		<li>
+			<a href="pdf/">
+				<span class="glyphicon glyphicon-link" ></span>
+				View File[ pdf ]
+			</a>
+			<ul>
+				<li>
+					Code: <br />
+					<code>
+						from django.http import FileResponse, Http404<br />
+						.<br />
+						.<br />
+						try:<br />
+						&nbsp;&nbsp;return FileResponse( open( '<em>path</em>', 'rb' ), content_type='application/pdf' )<br />
+						except FileNotFoundError:<br />
+						&nbsp;&nbsp;raise Http404<br />
+						.<br />
+						.<br />
+					</code>
+				</li>
+			</ul>
+		</li>
+	</ul>
+	-->
+
+	<!--<p>Value of 'request.path' : [ <i> {{ request.path }} </i> ]</p>-->
+
+{% endblock %}

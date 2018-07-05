@@ -1,0 +1,147 @@
+'{% extends 'root_template.html' %}
+
+{% block pagetitle %} Quiz Index {% endblock %}
+
+{% block stylesheets %}
+
+	{% load static %}
+	<!--<link rel="stylesheet" type="text/css"
+	href="{% static 'kib_exams/css/index_style.css' %}" />-->
+
+{% endblock %}
+
+{% block links %}
+
+	<li>
+		<a href="/users/">
+			Users Control Center
+		</a>
+	</li>
+
+	<li>
+		<a href="/quiz/">
+			Quiz Control Center
+		</a>
+	</li>
+	
+	<!--
+	<li>
+		<a href="/qa/">
+			[Qn and Ans]mod *later*
+		</a>
+	</li>
+	-->
+	<li>
+		<a href="/glyphicon/">
+			Glyphicons
+		</a>
+	</li>
+	
+	
+{% endblock %}
+
+{% block hi %}
+	Computer Architecture
+	<br>
+	<small>Aided Learning</small>
+{% endblock %}
+
+{% block content %}
+
+	<div class="row">
+		<div class="col m6">
+			<div class="card-panel grey lighten-2">
+				<span class="" style="font-size: 16px;">
+					Computer architecture is a specification detailing how a set of software and hardware technology standards interact to form a computer system or platform. As with other contexts and meanings of the word architecture, computer architecture is likened to the art of determining the needs of the user/system/technology, and creating a logical design and standards based on those requirements. 
+				</span>
+			</div>
+		</div>
+
+		<div class="col m6">
+			<div class="card-panel grey lighten-2 z-depth-2">
+				<span class="" style="font-size: 16px;">
+					In this course, you will get to study the history of modern computing technology before being introduced to modern computer architecture and a number of its important features, including instruction sets, processor arithmetic and control, the Von Neumann architecture, pipelining, memory management, storage, and other input/output topics. The course will conclude with a look at the recent switch from sequential processing to parallel processing by looking at the parallel computing models and their programming implications.
+				</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col m4">
+			<div class="card-panel hoverable large">
+				<h6>Did you know, <small>CPU and the Human Brain share some similarities</small> :</h6>
+				<br />
+				<span class="">
+					<i>
+						"
+						A CPU executes programmed instructions to add, compare, and move data. It deals directly with information. The other parts of a computer serve to store data or bring it into or out of the CPU, but the CPU works actively on the data. The human brain, like the CPU, uses data gathered by the senses to help the body survive. Its purpose is to manage information, and it uses the rest of the body to gather information and act on it.
+						"
+					</i>
+				</span>
+			</div>
+			<div class="row">
+				<div class="col m6">
+					<div class="card-panel hoverable">
+						<span style="font-size: 15px;">
+							A very good example of computer architecture is von Neumann architecture, which is still used by most types of computers today. This was proposed by the mathematician John von Neumann in 1945.
+						</span>
+					</div>
+				</div>
+				<div class="col m6">
+					<div class="card-panel hoverable">
+						<p>Why one needs computer architecture :)</p>
+						<span>
+							{% load static %}
+							<img src="{% static 'users/images/funny_comp_archi_3.jpeg' %}"
+							width="95%" alt="image" />
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col m4">
+			<div class="card hoverable">
+				<div class="card-image waves-effect waves-block waves-light">
+			   	{% load static %}
+			   	<img class="activator" src="{% static 'users/images/cube.jpg' %}" 
+			   	alt="card image" />
+			   </div>
+			   <div class="card-content">
+					<span 
+					class="card-title activator grey-text text-darken-4">
+						Benefits
+						<i class="glyphicon glyphicon-list right">
+							<!-- class[ material-icons ] more_vert-->
+						</i>
+					</span>
+			   </div>
+			   <div class="card-reveal">
+			   	<span class="card-title grey-text text-darken-4">
+			   		They include:
+			   		<i class="glyphicon glyphicon-remove right">
+			   			<!-- material-icons close -->
+			   		</i>
+			   	</span>
+			   	<ol style="list-style: lower-roman;font-size: 17px;">
+			   		<li>
+			   			One is able to further optimize the operation of the software they developed due to the extra understanding of how computers manage data and information.
+			   		</li>
+			   		<li>
+			   			Expanding the possibilities of solutions to various issues since one can comfortably combine hardware and software in the solving process.
+			   		</li>
+			   	</ol>
+			   </div>
+			</div>
+		</div>
+
+		<div class="col m4">
+			<div class="card-panel hoverable large">
+				<span class="" style="font-size: 16px;">
+					Modern computer technology requires an understanding of both hardware and software, as the interaction between the two offers a framework for mastering the fundamentals of computing. The purpose of this course is to cultivate an understanding of modern computing technology through an in-depth study of the interface between hardware and software.
+				</span>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

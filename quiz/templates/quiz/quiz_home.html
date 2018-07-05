@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block title %} Quiz Home Page {% endblock %}
+
+{% block links %}
+
+	<!--
+	<li>
+		<a href="/quiz/category/">
+			quiz-Category
+		</a>
+	</li>
+	<li>
+		<a href="/quiz/progress/">
+			quiz-Progress
+		</a>
+	</li>
+	<li>
+		<a href="/quiz/marking/">
+			quiz-Marking
+		</a>
+	</li>
+	-->
+
+{% endblock %}
+
+{% block hi %}
+<!-- welcome text -->
+Quiz <small> Control Center </small>
+{% endblock %}
+
+{% block content %}
+
+	<h4>Available Services:</h4>
+	
+<ul>
+
+	<li>
+		<div class="card hoverable">
+			
+			<div class="card-content">
+				<span class="card-title">Available Reading Materials</span>
+				<p>Access the variety of reading materials available</p>
+			</div>
+
+			<div class="card-action">
+				<a href="{% url 'allPdfs_link' %}">
+					Read
+				</a>
+			</div>
+
+		</div>
+	</li>
+	
+	<li>			
+		<div class="card hoverable">
+			
+			<div class="card-content">
+				<span class="card-title">List of Available Quizzes</span>
+				<p>
+					Here you will be able to access all the tests that are available to you.
+				</p>
+			</div>
+
+			<div class="card-action">
+				<a href="{% url 'quiz_index' %}">
+					Check Them Out
+				</a>
+			</div>
+
+		</div>			
+	</li>
+
+	<li>
+		<div class="card hoverable">
+			
+			<div class="card-content">
+				<span class="card-title">Quiz Categories</span>
+				<p>
+					Choose the category best suited for you
+				</p>
+			</div>
+
+			<div class="card-action">
+				<a href="/quiz/category/">
+					View Categories
+				</a>
+			</div>
+
+		</div>
+	</li>
+
+	<li>
+		<div class="card hoverable">
+			
+			<div class="card-content">
+				<span class="card-title">Quiz Progress</span>
+				<p>
+					Monitor your performance as you proceed through the course work.
+				</p>
+			</div>
+
+			<div class="card-action">
+				<a href="/quiz/progress/">
+					Progress Check
+				</a>
+			</div>
+
+		</div>
+	</li>
+
+	<li>
+		<div class="card hoverable">
+			
+			<div class="card-content">
+				<span class="card-title">Quiz Marking</span>
+				<p>
+					Mark Quizzes submitted by students.
+				</p>
+				<p>
+					<i>Only Available for Lecturers</i>
+				</p>
+			</div>
+
+			<div class="card-action">
+				<a href="/quiz/marking/">
+					Begin Marking
+				</a>
+			</div>
+
+		</div>
+	</li>
+
+	<!--<li>
+		<a href="/quiz/pdf/">
+			<span class="glyphicon glyphicon-link" ></span>
+			Ona File[ pdf ]
+			<span class="glyphicon glyphicon-warning-sign" ></span>
+		</a>
+	</li>-->
+
+</ul>
+
+{% endblock %}

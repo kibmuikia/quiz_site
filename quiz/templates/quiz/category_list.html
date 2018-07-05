@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Quiz Categories" %}{% endblock %}
+
+{% block hi %}
+	Quiz Categories
+{% endblock %}
+
+{% block content %}
+<h4>{% trans "Available Categories Include:" %}</h4>
+
+<ul>
+  {% for cat in category_list %}
+  <li>
+	<a href="{% url 'quiz_category_list_matching' category_name=cat.category %}">
+	  <table class="highlight centered responsive-table">
+	  	<tbody>
+	  		<tr>
+	  			<td>
+	  				<button class="btn-large">
+	  					{{ cat.category }}
+	  				</button>
+	  			</td>
+	  		</tr>
+	  	</tbody>
+	  </table>
+	</a>
+  </li>
+  {% endfor %}
+</ul>
+
+{% endblock %}

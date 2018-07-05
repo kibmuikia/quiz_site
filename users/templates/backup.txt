@@ -1,0 +1,13 @@
+{% for pfield in pform %}
+            <div class="form-row">
+            	<span> {{ pfield.errors }} </span>
+               <label>
+                  <span> {{ pfield.label_tag }} </span>
+                  {{ pfield }}
+               </label>
+            </div>
+            {% endfor %}
+
+
+
+            {{ pform.management_form }}

@@ -1,0 +1,81 @@
+{% extends 'users_template.html' %}
+
+{% block pagetitle %} Register Page {% endblock %}
+
+{% block stylesheets %}
+	{% load static %}
+	<link rel="stylesheet" type="text/css"
+	href="{% static 'users/css/form-register.css' %}" />
+{% endblock %}
+
+{% block links %}
+	<li>
+		<a href="/users/">
+			User-Account Center
+		</a>
+	</li>
+	<li>
+		<a href="{% url 'users_login_link' %}">
+			Login
+		</a>
+	</li>
+{% endblock %}
+
+{% block hi %}
+ Registration <small>Hub</small>
+{% endblock %}
+
+{% block content %}
+
+	<form method="POST" enctype="multipart/form-data" action=""
+	class="form-register" >
+
+		{% csrf_token %}
+
+		<div class="form-register-with-email">
+
+			<div class="form-white-background">
+
+				<div class="form-title-row">
+					<h1>Create an account <small>pap!</small> </h1>
+				</div>
+
+            {% for ufield in uform %}
+            <div class="form-row">
+            	<span> {{ ufield.errors }} </span>
+               <label>
+                  <span> {{ ufield.label_tag }} </span>
+                  {{ ufield }}
+               </label>
+            </div>
+            {% endfor %}
+
+
+
+            <table class="responsive-table highlight" >
+            	{{ pform.as_table }}
+            </table>
+
+            <!--
+            {% for pformVal in pform %}
+            	<p>pformVal :: <br /> [ <b>{{ pformVal.errors }}</b> ] <br /> .@.</p>
+            {% endfor %}
+         	-->
+
+            <div class="form-row">
+            	<button type="submit" name="reg_submit_btn" >
+            		Register
+            	</button>
+            </div>
+
+			</div>
+
+			<a href="{% url 'users_login_link' %}" class="form-log-in-with-existing" >
+				Already have an account? Login here &rarr;
+			</a>
+
+		</div>
+
+	</form><!-- end: registration form -->
+
+{% endblock %}
