@@ -30,7 +30,16 @@
 {% endblock %}
 
 {% block content %}
-<h3>{% trans "List of quizzes" %}</h3>
+	<h3>{% trans "List of quizzes" %}</h3>
+
+	<p>
+		Back to 
+		<a href="{% url 'quiz_home' %}">
+			<button class="btn btn-small red lighten-1 waves-effect waves-light">
+				Quiz Dashboard
+			</button>
+		</a>
+	</p>
     
     {% if quiz_list %}
 		<table class="highlight responsive-table centered">

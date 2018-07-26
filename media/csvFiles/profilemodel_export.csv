@@ -1,0 +1,5 @@
+user_id,username,email,pic,bio,account_type,progressLevel
+1,admin,muikiaa@gmail.com,"","",LEC,1
+15,studtwo,studtwo@mail.com,users/account_images/user_15/15-STUDTWO.jpg,"uname: studtwo, pwd: pass1234",STUD,1
+14,studone,studone@mail.com,users/account_images/user_14/14-STUDONE_dysWbnY.jpg,"uname: studone, pwd: pass1234",STUD,1
+16,lecone,lecone@mail.com,users/account_images/user_16/16-LECONE.jpg,dnsfnegjk,LEC,1

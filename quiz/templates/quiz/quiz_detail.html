@@ -14,7 +14,12 @@
 
 	<h3 class="grey-text text-darken-2 center">Title: <i>{{ quiz.title }}</i> </h3>
 
-	<h4 class=""> {% trans "Category" %}: {{ quiz.category }} </h4>
+	<h4 class=""> 
+		{% trans "Category" %}: {{ quiz.category }} 
+		<!--<small>
+			{{ quiz.category.level }}, ulevel-{{ request.user.user.progressLevel }}
+		</small>-->
+	</h4>
 
 	{% if quiz.single_attempt %}
 	  <h5> {% trans "You will only get one attempt at this quiz" %}. </h5>
@@ -23,11 +28,27 @@
 	<p class=""> {{ quiz.description }} </p>
 
 	<p class="center">
+	  {% if request.user.user.progressLevel >= quiz.category.level %}
 	  <a href="{% url 'quiz_question' quiz_name=quiz.url %}">
 		<button class="btn-large green accent-3 black-text">
 			{% trans "Start quiz" %}
 		</button>
 	  </a>
+	  {% else %}
+	  <button class="btn-large red accent-1 white-text" 
+	  title="Please pass the previous level to gain access">
+	  	Denied
+	  </button>
+	  {% endif %}
+	</p>
+
+	<p>
+		Back to 
+		<a href="{% url 'quiz_home' %}">
+			<button class="btn btn-small red lighten-1 waves-effect waves-light">
+				Quiz Dashboard
+			</button>
+		</a>
 	</p>
 
 {% endblock %}

@@ -26,7 +26,7 @@
 
 {% block hi %}
 <!-- welcome text -->
-Quiz <small> Control Center </small>
+Quiz <small> Dashboard </small>
 {% endblock %}
 
 {% block content %}
@@ -109,6 +109,7 @@ Quiz <small> Control Center </small>
 		</div>
 	</li>
 
+	{% if request.user.user.account_type == "LEC" %}
 	<li>
 		<div class="card hoverable">
 			
@@ -130,6 +131,7 @@ Quiz <small> Control Center </small>
 
 		</div>
 	</li>
+	{% endif %}
 
 	<!--<li>
 		<a href="/quiz/pdf/">

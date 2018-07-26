@@ -10,6 +10,24 @@
 {% endblock %}
 
 {% block content %}
+
+	<p>
+		<i>You are {{ request.user }}, at level [ {{ request.user.user.progressLevel }} ].</i>
+		<!-- , with id [{{ request.user.id }}], -->
+	</p>
+		<!--{% for category in categorydata %}
+			<p>
+				{{ category.level }}
+			</p>
+		{% endfor %}-->
+	<p>
+		Back to 
+		<a href="{% url 'quiz_home' %}">
+			<button class="btn btn-small red lighten-1 waves-effect waves-light">
+				Quiz Dashboard
+			</button>
+		</a>
+	</p>
 	
 	<h5>We recommend the following study resources as you undertake this course:</h5>
 	
@@ -17,23 +35,29 @@
 
 	<div class="row">
 
-		<div class="col m5">			
+		<div class="col m6">			
 			<div class="card hoverable">
 				<div class="card-image waves-effect waves-block waves-light">
-					{% load static %}
+					
+					<!--{% load static %}
 					<img class="activator" 
 					src="{% static 'users/images/comp_archi_by_mano_cover_page.jpg' %}" 
-					alt="resource_one_image">
+					alt="resource_one_image">-->
+
+					<img class="activator" 
+					src="../../media/study/level-1-image.png"
+					alt="chapter-one-image" />
+
 				</div>
 				<div class="card-content">
 					<span class="card-title activator grey-text text-darken-4">
-						Computer System Architecture
-						<span class="right btn-floating pulse revealBtn">
-							<i class="">-:</i>
+						Chapter One: Digital Logic Circuits
+						<span class="right btn-floating pulse revealBtn material-icons">
+							arrow_forward
 						</span>
 						<br />
 						<p class="small center">
-							<a href="../../media/study/computer_system_architecture_mano.pdf" 
+							<a href="../../media/study/level-1-digital-logic-circuits.pdf"
 							class="green-text text-darken-1">
 								Use Resource
 							</a>
@@ -43,7 +67,7 @@
 				<div class="card-reveal">
 					<span class="card-title grey-text text-darken-4">
 						Sneek Peek:
-						<i class="glyphicon glyphicon-remove right"></i>
+						<i class="material-icons right">close</i>
 					</span>
 					<ul>
 						<li>
@@ -64,48 +88,230 @@
 			</div><!-- card-:resource one -->
 		</div>
 
-		<div class="col m5">			
+		<div class="col m6">			
 			<div class="card hoverable">
 				<div class="card-image waves-effect waves-block waves-light">
-					{% load static %}
+
 					<img class="activator" 
-					src="{% static 'users/images/fundamental_comp_archi_cover_page.jpg' %}" 
-					alt="resource_one_image">
+					src="../../media/study/level-2-image.png"
+					alt="chapter-one-image" />
+
 				</div>
 				<div class="card-content">
 					<span class="card-title activator grey-text text-darken-4">
-						Fundamentals of Computer Architecture
-						<span class="right btn-floating pulse revealBtn">
-							<i class="">-:</i>
+						Chapter Two: Digital Components
+						<span class="right btn-floating pulse revealBtn material-icons">
+							arrow_forward
 						</span>
 						<br />
 						<p class="small center">
-							<a href="../../media/study/fundamentals_comp_org_archi.pdf" 
+							{% if request.user.user.progressLevel > 1 %}
+							<a href="../../media/study/level-2-digital-components.pdf"
 							class="green-text text-darken-1">
 								Use Resource
 							</a>
+							{% else %}
+							<span class="red white-text" 
+							title="Pass the level one to gain access">
+								Access Denied
+							</span>
+							{% endif %}
 						</p>
 					</span>
 				</div>
 				<div class="card-reveal">
 					<span class="card-title grey-text text-darken-4">
 						Sneek Peek:
-						<i class="glyphicon glyphicon-remove right"></i>
+						<i class="material-icons right">close</i>
 					</span>
-					
 					<ul>
 						<li>
 							<p>
-								This resource material provides a historical background on the evolution of cornerstone ideas in the computing industry.
+								This study resource provides the basic know-how necessary to understand the hardware operation of digital computers.
 							</p>
 						</li>
 						<li>
 							<p>
-								It begins with the basic principles involved in instruction set architecture and design, as it gradually winds its way up to more complex matters.
+								It first presents the simpler concepts then gradually proceeds to the more complex matters of computers and their operations.
 							</p>
 						</li>
+						<li>
+							<h5>written by: <small>Morris Mano</small> </h5>
+						</li>
 					</ul>
+				</div>
+			</div><!-- card-:resource one -->
+		</div>
 
+	</div>
+
+	<div class="row">
+
+		<div class="col m6">			
+			<div class="card hoverable">
+				<div class="card-image waves-effect waves-block waves-light">
+
+					<img class="activator" 
+					src="../../media/study/level-3-image.png"
+					alt="chapter-one-image" />
+
+				</div>
+				<div class="card-content">
+					<span class="card-title activator grey-text text-darken-4">
+						Chapter Three: Data Representation
+						<span class="right btn-floating pulse revealBtn material-icons">
+							arrow_forward
+						</span>
+						<br />
+						<p class="small center">
+							{% if request.user.user.progressLevel > 2 %}
+							<a href="../../media/study/level-3-data-representation.pdf"
+							class="green-text text-darken-1">
+								Use Resource
+							</a>
+							{% else %}
+							<span class="red white-text" 
+							title="Pass the level one and two to gain access">
+								Access Denied
+							</span>
+							{% endif %}
+						</p>
+					</span>
+				</div>
+				<div class="card-reveal">
+					<span class="card-title grey-text text-darken-4">
+						Sneek Peek:
+						<i class="material-icons right">close</i>
+					</span>
+					<ul>
+						<li>
+							<p>
+								This study resource provides the basic know-how necessary to understand the hardware operation of digital computers.
+							</p>
+						</li>
+						<li>
+							<p>
+								It first presents the simpler concepts then gradually proceeds to the more complex matters of computers and their operations.
+							</p>
+						</li>
+						<li>
+							<h5>written by: <small>Morris Mano</small> </h5>
+						</li>
+					</ul>
+				</div>
+			</div><!-- card-:resource one -->
+		</div>
+
+		<div class="col m6">			
+			<div class="card hoverable">
+				<div class="card-image waves-effect waves-block waves-light">
+
+					<img class="activator" 
+					src="../../media/study/level-4-image.png"
+					alt="chapter-one-image" />
+
+				</div>
+				<div class="card-content">
+					<span class="card-title activator grey-text text-darken-4">
+						Chapter Four: Register Transfer and Microoperations
+						<span class="right btn-floating pulse revealBtn material-icons">
+							arrow_forward
+						</span>
+						<br />
+						<p class="small center">
+							{% if request.user.user.progressLevel > 3 %}
+							<a href="../../media/study/level-4-register-transfer-and-microoperations.pdf"
+							class="green-text text-darken-1">
+								Use Resource
+							</a>
+							{% else %}
+							<span class="red white-text" 
+							title="Pass the level one, two and three to gain access">
+								Access Denied
+							</span>
+							{% endif %}
+						</p>
+					</span>
+				</div>
+				<div class="card-reveal">
+					<span class="card-title grey-text text-darken-4">
+						Sneek Peek:
+						<i class="material-icons right">close</i>
+					</span>
+					<ul>
+						<li>
+							<p>
+								This study resource provides the basic know-how necessary to understand the hardware operation of digital computers.
+							</p>
+						</li>
+						<li>
+							<p>
+								It first presents the simpler concepts then gradually proceeds to the more complex matters of computers and their operations.
+							</p>
+						</li>
+						<li>
+							<h5>written by: <small>Morris Mano</small> </h5>
+						</li>
+					</ul>
+				</div>
+			</div><!-- card-:resource one -->
+		</div>
+
+	</div>
+
+	<div class="row">
+		
+		<div class="col m6 offset-m3">			
+			<div class="card hoverable">
+				<div class="card-image waves-effect waves-block waves-light">
+
+					<img class="activator" 
+					src="../../media/study/level-5-image.png"
+					alt="chapter-one-image" />
+
+				</div>
+				<div class="card-content">
+					<span class="card-title activator grey-text text-darken-4">
+						Chapter Five: Basic Computer Organization and Design
+						<span class="right btn-floating pulse revealBtn material-icons">
+							arrow_forward
+						</span>
+						<br />
+						<p class="small center">
+							{% if request.user.user.progressLevel > 4 %}
+							<a href="../../media/study/level-5-basic-computer-organization-and-design.pdf"
+							class="green-text text-darken-1">
+								Use Resource
+							</a>
+							{% else %}
+							<span class="red white-text" 
+							title="Pass the level one, two, three and four to gain access">
+								Access Denied
+							</span>
+							{% endif %}
+						</p>
+					</span>
+				</div>
+				<div class="card-reveal">
+					<span class="card-title grey-text text-darken-4">
+						Sneek Peek:
+						<i class="material-icons right">close</i>
+					</span>
+					<ul>
+						<li>
+							<p>
+								This study resource provides the basic know-how necessary to understand the hardware operation of digital computers.
+							</p>
+						</li>
+						<li>
+							<p>
+								It first presents the simpler concepts then gradually proceeds to the more complex matters of computers and their operations.
+							</p>
+						</li>
+						<li>
+							<h5>written by: <small>Morris Mano</small> </h5>
+						</li>
+					</ul>
 				</div>
 			</div><!-- card-:resource one -->
 		</div>

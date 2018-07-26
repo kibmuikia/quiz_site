@@ -9,6 +9,9 @@ from django.contrib.auth.models import User
 # import signals
 from django.db.models.signals import post_save
 
+# import Copy Manager from postgres_copy
+from postgres_copy import CopyManager
+
 # Create your models here.
 
 	# function to define directory of profile pictures
@@ -37,6 +40,12 @@ class ProfileModel( models.Model ):
 
 	bio = models.TextField(  default='', blank=True, max_length=140,
 	verbose_name='Biography' )
+	progressLevel = models.IntegerField( default=1 )
+		# to enable exporting to file in csv format
+	objects = CopyManager()
+
+	def __str__(self):
+		return str(self.user)
 
 	def save( self, *args, **kwargs ):
 			# do something

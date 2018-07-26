@@ -38,7 +38,7 @@ urlpatterns = [
   url( r'^quiz/', include( 'quiz.urls' ) ),
 
   # application[ qa ]
-  url(r'^qa/', include('qa.urls') ),
+  #url(r'^qa/', include('qa.urls') ),
 
 ]
 

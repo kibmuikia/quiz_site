@@ -14,6 +14,10 @@ from .forms import QuestionForm, EssayForm
 from .models import Quiz, Category, Progress, Sitting, Question
 from essay.models import Essay_Question
 
+from .resources import sittingResource, progressResource, quizResource, questionResource
+
+from django.core.management.base import BaseCommand
+
 # view to display all study materials including pdfs ( as cards(materialcss) )
 # coded by Kibuthi
 class allPdfsView( View ):
@@ -23,10 +27,14 @@ class allPdfsView( View ):
     def get( self, request,*args, **kwargs ):
         args = {}
         if request.user.is_authenticated:
+            categorydata = Category.objects.all().order_by('level')
+            args = {
+                'categorydata' : categorydata
+            }
             return render( request, self.template_name, args )
         else:
             args = {
-                'site_message' : 'Please login to access the quizzes.'
+                'site_message' : 'Please login to access the study materials.'
             }
 
             return redirect( 'users_login_link' % args )
@@ -134,6 +142,13 @@ class QuizUserProgressView(TemplateView):
         progress, c = Progress.objects.get_or_create(user=self.request.user)
         context['cat_scores'] = progress.list_all_cat_scores
         context['exams'] = progress.show_exams()
+        # kib edit
+        sittingData = Sitting.objects.filter(user=self.request.user)
+        context['yourSitting'] = sittingData
+        for sitValue in sittingData:
+            text = 'quiz[%s],quizPassMark[%s],catLevel[%s],comp[%s]' % ( str(sitValue.quiz),str(sitValue.quiz.pass_mark),str(sitValue.quiz.category.level),str(sitValue.complete) )
+            print( text )
+        #code
         return context
 
 
@@ -284,6 +299,16 @@ class QuizTake(FormView):
         if self.quiz.exam_paper is False:
             self.sitting.delete()
 
+        # export results of user to csv file :: sittingResource : request.user.username, request.user
+        sitting_resource = sittingResource()
+        userSittingData = Sitting.objects.filter(user=self.request.user).order_by('quiz')
+        dataset = sitting_resource.export( userSittingData )
+        #print(dataset.csv)
+        path = 'media/csvFiles/sittingResourceFile-'+str(self.request.user.id)+'-'+str(self.request.user)+'.csv'
+        print( path )
+        datasetFile = open( path, 'w+')
+        datasetFile.write(dataset.csv)
+        datasetFile.close()
         return render(self.request, 'result.html', results)
 
     def anon_load_sitting(self):

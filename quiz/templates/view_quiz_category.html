@@ -23,11 +23,17 @@
         <ul>
         {% for quiz in quizzes %}
             <li>
-    		  <a href="{% url 'quiz_question' quiz_name=quiz.url %}">
+    		  {% if request.user.user.progressLevel >= quiz.category.level %}
+              <a href="{% url 'quiz_question' quiz_name=quiz.url %}">
     			<button class="btn-large light-blue"><!-- green accent-3 -->
                     {{ quiz.title }}             
                 </button>                
     		  </a>
+              {% else %}
+              <button class="btn-large red accent-3 white-text" >
+                  Denied
+              </button>
+              {% endif %}
     		</li>
         {% endfor %}
         </ul>

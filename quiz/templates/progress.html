@@ -8,10 +8,22 @@
 {% block description %} {% trans "User Progress Page" %} {% endblock %}
 
 {% block hi %}
-	Progress Doctor
+	Progress Dashboard
 {% endblock %}
 
 {% block content %}
+	<p>
+		You are {{ request.user }}, with id [{{ request.user.id }}], 
+		at level [ {{ request.user.user.progressLevel }} ].
+	</p>
+	<p>
+		Back to 
+		<a href="{% url 'quiz_home' %}">
+			<button class="btn btn-small red lighten-1 waves-effect waves-light">
+				Quiz Dashboard
+			</button>
+		</a>
+	</p>
 
   {% if cat_scores %}
 
@@ -85,6 +97,44 @@
 
   </table>
 
+  {% endif %}
+
+  {% if yourSitting %}
+  <h4>Below are the actual perfomance information of your tests:</h4>
+  <table class="highlight responsive-table centered">
+  <thead>
+  	<tr>
+  		<!--<th>id</th>
+  		<th>user</th>-->
+  		<th>quiz</th>
+  		<!--<th>question_order</th>
+  		<th>question_list</th>-->
+  		<th>incorrect_questions</th>
+  		<th>current_score</th>
+  		<th>complete</th>
+  		<th>user_answers</th>
+  		<th>start</th>
+  		<th>end</th>
+  	</tr>
+  </thead>
+  <tbody>
+  	{% for sitVal in yourSitting %}
+  	<tr>
+  		<!--<td> {{ sitVal.id }} </td>
+  		<td> {{ sitVal.user }} </td>-->
+  		<td> {{ sitVal.quiz }} </td>
+  		<!--<td> {{ sitVal.question_order }} </td>
+  		<td> {{ sitVal.question_list }} </td>-->
+  		<td> {{ sitVal.incorrect_questions }} </td>
+  		<td> {{ sitVal.current_score }} </td>
+  		<td> {{ sitVal.complete }} </td>
+  		<td> {{ sitVal.user_answers }} </td>
+  		<td> {{ sitVal.start }} </td>
+  		<td> {{ sitVal.end }} </td>
+  	</tr>
+  	{% endfor %}
+  </tbody>
+  </table>
   {% endif %}
 
 

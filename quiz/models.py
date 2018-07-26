@@ -12,6 +12,9 @@ from django.conf import settings
 
 from model_utils.managers import InheritanceManager
 
+# import Copy Manager from postgres_copy
+from postgres_copy import CopyManager
+
 
 class CategoryManager(models.Manager):
 
@@ -30,6 +33,7 @@ class Category(models.Model):
         verbose_name=_("Category"),
         max_length=250, blank=True,
         unique=True, null=True)
+    level = models.IntegerField( unique=True, blank=True, null=True )
 
     objects = CategoryManager()
 
@@ -84,6 +88,11 @@ class Quiz(models.Model):
         Category, null=True, blank=True,
         verbose_name=_("Category"), on_delete=models.CASCADE )
 
+    #level = models.OneToOneField( Category, to_field='level', 
+        #on_delete=models.CASCADE, 
+        #null=True, 
+        #blank=True, related_name="quiz_level" )
+
     random_order = models.BooleanField(
         blank=False, default=False,
         verbose_name=_("Random Order"),
@@ -136,6 +145,9 @@ class Quiz(models.Model):
                     " in the quiz list and can only be"
                     " taken by users who can edit"
                     " quizzes."))
+
+        # to enable exporting to file in csv format
+    #objects = CopyManager()
 
     def save(self, force_insert=False, force_update=False, *args, **kwargs):
         self.url = re.sub('\s+', '-', self.url).lower()
@@ -201,6 +213,7 @@ class Progress(models.Model):
     validators=[] )
 
     objects = ProgressManager()
+    #objects = CopyManager()
 
     class Meta:
         verbose_name = _("User Progress")
@@ -411,6 +424,8 @@ class Sitting(models.Model):
     end = models.DateTimeField(null=True, blank=True, verbose_name=_("End"))
 
     objects = SittingManager()
+        # to enable exporting to file in csv format
+    #objects = CopyManager()
 
     class Meta:
         permissions = (("view_sittings", _("Can see completed exams.")),)

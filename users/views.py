@@ -21,6 +21,10 @@ from .models import ProfileModel
 
 from django.forms.models import inlineformset_factory
 
+from django.core.management.base import BaseCommand
+
+from .resources import profilemodelResource
+
 # Create your views here.
 
 # view to display a pdf
@@ -109,6 +113,8 @@ class registerView( View ):
 						args = {
 						'site_message':msg
 						}
+						# export table-ProfileModel to media/csvFiles/profilemodel.csv after a user is registered
+						ProfileModel.objects.to_csv('media/csvFiles/profilemodel_export.csv','user_id','user__username','user__email','pic','bio','account_type','progressLevel')
 						return render( request, 'site_users_index.html', args )
 
 		args = {

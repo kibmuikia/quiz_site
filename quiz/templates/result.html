@@ -4,7 +4,11 @@
 {% load quiz_tags %}
 
 {% block title %} {{ quiz.title}} {% endblock %}
+
+{% block hi %} Results Terminal {% endblock %}
+
 {% block description %} {% trans "Exam Results for" %} {{ quiz.title }} {% endblock %}
+<!--{% block descripti %} Exam Results for {{ quiz.title }} {% endblock %}-->
 
 {% block content %}
 
@@ -94,6 +98,15 @@
   {% endfor %}
 
   {% endif %}
+
+  <p>
+    Back to 
+    <a href="{% url 'quiz_home' %}">
+      <button class="btn btn-small">
+        Quiz Dashboard
+      </button>
+    </a>
+  </p>
 
 
 {% endblock %}

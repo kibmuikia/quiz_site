@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     # for application[ django-extensions ]
     'django_extensions',
 
@@ -49,10 +50,12 @@ INSTALLED_APPS = [
     'true_false',
     'essay',
 
+    'import_export',
+
     # for application[ qa ]
-    'qa',
-    'taggit',
-    'hitcount',
+    #'qa',
+    #'taggit',
+    #'hitcount',
     #'django_markdown',
 
     # testing bootstrap3
@@ -112,7 +115,8 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD': 'admin',
         'HOST': 'localhost',
-        'PORT': '5432',
+        # 'PORT': '5432', - previous setting
+        'PORT': '5433',
     }
 }
 
@@ -153,27 +157,29 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
-
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join( BASE_DIR, 'static' )
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join( BASE_DIR, 'media' )
 
+# for app: import_export
+IMPORT_EXPORT_USE_TRANSACTIONS = True
+
 # for application[ qa ]
-QA_SETTINGS = {
-    'qa_messages': True,
-    'qa_description_optional': False,
-    'count_hits': True,
-    'reputation': {
-        'CREATE_QUESTION': 0,
-        'CREATE_ANSWER': 0,
-        'CREATE_ANSWER_COMMENT': 0,
-        'CREATE_QUESTION_COMMENT': 0,
-        'ACCEPT_ANSWER': 0,
-        'UPVOTE_QUESTION': 0,
-        'UPVOTE_ANSWER': 0,
-        'DOWNVOTE_QUESTION': 0,
-        'DOWNVOTE_ANSWER': 0,
-    }
-}
+#QA_SETTINGS = {
+    #'qa_messages': True,
+    #'qa_description_optional': False,
+    #'count_hits': True,
+    #'reputation': {
+        #'CREATE_QUESTION': 0,
+        #'CREATE_ANSWER': 0,
+        #'CREATE_ANSWER_COMMENT': 0,
+        #'CREATE_QUESTION_COMMENT': 0,
+        #'ACCEPT_ANSWER': 0,
+        #'UPVOTE_QUESTION': 0,
+        #'UPVOTE_ANSWER': 0,
+        #'DOWNVOTE_QUESTION': 0,
+        #'DOWNVOTE_ANSWER': 0,
+    #}
+#}

@@ -9,4 +9,6 @@ from .models import ProfileModel
 # Register your models here.
 admin.site.register( ProfileModel )
 
-admin.site.site_header = 'Kibuthi Developer'
+admin.site.site_header = 'Kibuthi The Developer'
+admin.site.index_title = 'Computer Architecture Learning Administration'
+admin.site.site_title = 'Kib-Quiz Control Panel'
