@@ -13,6 +13,7 @@ from django.views.generic import DetailView, ListView, TemplateView, FormView, V
 from .forms import QuestionForm, EssayForm
 from .models import Quiz, Category, Progress, Sitting, Question
 from essay.models import Essay_Question
+from users.models import ProfileModel
 
 from .resources import sittingResource, progressResource, quizResource, questionResource
 
@@ -82,7 +83,7 @@ class QuizListView(ListView):
     model = Quiz
 
     def get_queryset(self):
-        queryset = super(QuizListView, self).get_queryset()
+        queryset = super(QuizListView, self).get_queryset().order_by('title')
         return queryset.filter(draft=False)
 
 
@@ -130,12 +131,80 @@ class ViewQuizListByCategory(ListView):
 
 
 class QuizUserProgressView(TemplateView):
+    #template_name = 'progress.html'
     template_name = 'progress.html'
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         return super(QuizUserProgressView, self)\
             .dispatch(request, *args, **kwargs)
+
+    def check_level( self, ** kwargs ):
+        userprogresslevel = self.request.user.user.progressLevel
+        print( '\n\tUser-progressLevel :: ' + str(userprogresslevel) + '\n')
+        userprog = Progress.objects.filter( user=self.request.user )
+        for user in userprog:
+            print( user )
+                # print( user.user.progressLevel ) << Error: 'User' object has no attribute 'progressLevel'
+            print('\n')
+            userExam = user.show_exams()
+            print( userExam )
+            print('\n\tjust shown userExam(has all quizzes done), going to userExam2...\n')
+            userExam2 = user.show_exams_per_category() # show_exams_per_category
+            print( userExam2 )
+            print('\n\tJust shown userExam2(has quizzes specific to user\'s level), going to "if userExam2"...\n')
+            if userExam2:
+                totalPassMark = 0
+                totalPercentScore = 0
+                status = 'proceed'
+                for examDetail in userExam2:
+                    print( examDetail )
+                    quizcategorylevel = examDetail.quiz.category.level
+                    #if quizcategorylevel == userprogresslevel:
+                    print( 'Quiz-title >> ' + examDetail.quiz.title )
+                    print( 'Quiz-category >> ' + examDetail.quiz.category.category )
+                    quizcategorylevel = examDetail.quiz.category.level
+                    print( 'Quiz-category-level >> ' + str( quizcategorylevel ) )
+                    print( 'Quiz-pass_mark >> ' + str(examDetail.quiz.pass_mark) )
+                    totalPassMark += examDetail.quiz.pass_mark
+                    print( 'User-current-score(no. of correctly answered qns) >> ' + str(examDetail.current_score) )
+                    print( 'Quiz-max-score(no. of qns) >> ' + str(examDetail.get_max_score) )
+                    print( 'User-percent-correct >> ' + str(examDetail.get_percent_correct) )
+                    totalPercentScore += examDetail.get_percent_correct
+                    print('\n')
+            else:
+                print( '\nThis user has not done any quiz in their current level' )
+                status = 'leaveAlone'
+                quizcategorylevel = userprogresslevel
+                break
+        
+        if status == 'proceed' and userprogresslevel == quizcategorylevel and totalPercentScore >= totalPassMark:
+            data = '\n\tTotal-pass-mark[ %d ] :: Total-percent-score[ %d ] in cat-level[ %s ]' % ( totalPassMark, totalPercentScore, str(quizcategorylevel) )
+            print( data )
+            result = '\n\tYou have met the level requirements, proceed to the next level'
+            print( result )
+            # code to update user-level to the next level
+            nextLevel = userprogresslevel + 1
+            validator = Sitting.objects.filter(user=self.request.user, complete=True).filter(quiz__category__level=nextLevel)
+            print( validator )
+            if validator:
+                print( '\nNo need to update user\'s level' )
+            else:
+                print( '\nAdmin, please update this user\'s level to [%d]' % (nextLevel) )
+                userDetails = ProfileModel.objects.get( user=self.request.user )
+                print( 'queried-user-level[ %d ]' % ( userDetails.progressLevel ) )
+                userDetails.progressLevel = nextLevel
+                userDetails.save()
+                print( 'new-queried-user-level[ %d ]' % ( userDetails.progressLevel ) )
+        else:
+                #result = '\n\tYour total score[%d] in level[%d] is below the level requirements[%d]' % ( totalPercentScore,quizcategorylevel,totalPassMark )
+            result = '\nNo Analysis required, you maintain your current level'
+            print(result)
+
+        confirmLevel = ProfileModel.objects.get( user=self.request.user )
+        print( '\n\t\tat function end, this user\'s level is[ %d ]' % ( confirmLevel.progressLevel ) )
+        print('\n')
+        return ''
 
     def get_context_data(self, **kwargs):
         context = super(QuizUserProgressView, self).get_context_data(**kwargs)
@@ -145,10 +214,7 @@ class QuizUserProgressView(TemplateView):
         # kib edit
         sittingData = Sitting.objects.filter(user=self.request.user)
         context['yourSitting'] = sittingData
-        for sitValue in sittingData:
-            text = 'quiz[%s],quizPassMark[%s],catLevel[%s],comp[%s]' % ( str(sitValue.quiz),str(sitValue.quiz.pass_mark),str(sitValue.quiz.category.level),str(sitValue.complete) )
-            print( text )
-        #code
+        context[ 'testData' ] = self.check_level
         return context
 
 

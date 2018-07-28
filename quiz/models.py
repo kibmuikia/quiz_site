@@ -318,6 +318,13 @@ class Progress(models.Model):
         """
         return Sitting.objects.filter(user=self.user, complete=True)
 
+    def show_exams_per_category( self, **kwargs ):
+        """
+        Finds the previous quizzes marked as 'exam papers'.
+        Returns a queryset of complete exams.
+        """
+        return Sitting.objects.filter(user=self.user, complete=True, quiz__category__level=self.user.user.progressLevel)
+
 
 class SittingManager(models.Manager):
 

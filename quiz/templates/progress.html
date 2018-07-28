@@ -12,9 +12,13 @@
 {% endblock %}
 
 {% block content %}
-	<p>
+	 <!--<p>
 		You are {{ request.user }}, with id [{{ request.user.id }}], 
 		at level [ {{ request.user.user.progressLevel }} ].
+	</p>-->
+	<p>
+		You are <u>{{ request.user }}</u>, 
+		at level <b>[ {{ request.user.user.progressLevel }} ]</b>.
 	</p>
 	<p>
 		Back to 
@@ -24,6 +28,12 @@
 			</button>
 		</a>
 	</p>
+
+	{% if testData %}
+		<p>
+			{{ testData }}
+		</p>
+	{% endif %}
 
   {% if cat_scores %}
 
@@ -107,14 +117,16 @@
   		<!--<th>id</th>
   		<th>user</th>-->
   		<th>quiz</th>
+  		<th>category</th>
+  		<th>cat-Level</th>
   		<!--<th>question_order</th>
   		<th>question_list</th>-->
-  		<th>incorrect_questions</th>
+  		<th>incorrect_qns</th>
   		<th>current_score</th>
   		<th>complete</th>
   		<th>user_answers</th>
-  		<th>start</th>
-  		<th>end</th>
+  		<!--<th>start</th>
+  		<th>end</th>-->
   	</tr>
   </thead>
   <tbody>
@@ -123,14 +135,16 @@
   		<!--<td> {{ sitVal.id }} </td>
   		<td> {{ sitVal.user }} </td>-->
   		<td> {{ sitVal.quiz }} </td>
+  		<td> {{ sitVal.quiz.category }} </td>
+  		<td> {{ sitVal.quiz.category.level }} </td>
   		<!--<td> {{ sitVal.question_order }} </td>
   		<td> {{ sitVal.question_list }} </td>-->
   		<td> {{ sitVal.incorrect_questions }} </td>
   		<td> {{ sitVal.current_score }} </td>
   		<td> {{ sitVal.complete }} </td>
   		<td> {{ sitVal.user_answers }} </td>
-  		<td> {{ sitVal.start }} </td>
-  		<td> {{ sitVal.end }} </td>
+  		<!--<td> {{ sitVal.start }} </td>
+  		<td> {{ sitVal.end }} </td>-->
   	</tr>
   	{% endfor %}
   </tbody>

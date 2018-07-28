@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %} New Progress Page {% endblock %}
+
+{% block hi %}
+	<i>{{ request.user }}</i> Progress Dashboard
+{% endblock %}
+
+{% block content %}
+
+	<p>
+		You are <u>{{ request.user }}</u>, 
+		at level <b>[ {{ request.user.user.progressLevel }} ]</b>.
+	</p>
+	<p>
+		Back to 
+		<a href="{% url 'quiz_home' %}">
+			<button class="btn btn-small red lighten-1 waves-effect waves-light">
+				Quiz Dashboard
+			</button>
+		</a>
+	</p>
+
+
+	<!-- code -->
+	
+
+{% endblock %}
