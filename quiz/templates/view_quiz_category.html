@@ -13,7 +13,7 @@
 {% block content %}
     <h4>
         {% trans "Quizzes in the" %}
-        <strong>{{ category.category }} </strong>
+        <strong>{{ category.category }} $</strong>
         {% trans "category" %}
     </h4>
 
@@ -42,5 +42,15 @@
     {% endif %}
 
     {% endwith %}
+
+    <br>
+    <p>
+        Back to 
+        <a href="{% url 'quiz_home' %}">
+            <button class="btn btn-small red lighten-1 waves-effect waves-light">
+                Quiz Dashboard
+            </button>
+        </a>
+    </p>
 
 {% endblock %}

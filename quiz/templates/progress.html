@@ -29,9 +29,10 @@
 		</a>
 	</p>
 
-	{% if testData %}
+	{% if checkLevelOutput %}
 		<p>
-			{{ testData }}
+			checkLevelOutput >> <b>{{ checkLevelOutput }}</b><br>
+			get-progressLevel >> <b>{{ request.user.user.progressLevel }}</b>
 		</p>
 	{% endif %}
 

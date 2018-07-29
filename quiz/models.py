@@ -321,7 +321,7 @@ class Progress(models.Model):
     def show_exams_per_category( self, **kwargs ):
         """
         Finds the previous quizzes marked as 'exam papers'.
-        Returns a queryset of complete exams.
+        Returns a queryset of complete exams, per category.
         """
         return Sitting.objects.filter(user=self.user, complete=True, quiz__category__level=self.user.user.progressLevel)
 

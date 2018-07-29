@@ -116,6 +116,7 @@ class registerView( View ):
 						# export table-ProfileModel to media/csvFiles/profilemodel.csv after a user is registered
 						ProfileModel.objects.to_csv('media/csvFiles/profilemodel_export.csv','user_id','user__username','user__email','pic','bio','account_type','progressLevel')
 						return render( request, 'site_users_index.html', args )
+						#return render( request, 'users-login.html', args )
 
 		args = {
 		'uform':uform,

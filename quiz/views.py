@@ -142,6 +142,18 @@ class QuizUserProgressView(TemplateView):
     def check_level( self, ** kwargs ):
         userprogresslevel = self.request.user.user.progressLevel
         print( '\n\tUser-progressLevel :: ' + str(userprogresslevel) + '\n')
+        
+        quizdata = Quiz.objects.filter( category__level=userprogresslevel )
+        print( '\nShowing quiz-data filtered with current user\'s level :: \n ' )
+        print( quizdata )
+        passmark_touse = 0
+        for quizdataVal in quizdata:
+            queried_passmark = quizdataVal.pass_mark
+            print( 'queried_passmark :: %d' % ( queried_passmark ) )
+            passmark_touse += queried_passmark
+        print( '\tpassmark_touse :: %d' % ( passmark_touse ) )
+        print( '\nDone showing quiz-data.\n' )
+
         userprog = Progress.objects.filter( user=self.request.user )
         for user in userprog:
             print( user )
@@ -178,7 +190,7 @@ class QuizUserProgressView(TemplateView):
                 quizcategorylevel = userprogresslevel
                 break
         
-        if status == 'proceed' and userprogresslevel == quizcategorylevel and totalPercentScore >= totalPassMark:
+        if status == 'proceed' and userprogresslevel == quizcategorylevel and totalPercentScore >= passmark_touse:#totalPassMark:
             data = '\n\tTotal-pass-mark[ %d ] :: Total-percent-score[ %d ] in cat-level[ %s ]' % ( totalPassMark, totalPercentScore, str(quizcategorylevel) )
             print( data )
             result = '\n\tYou have met the level requirements, proceed to the next level'
@@ -196,15 +208,17 @@ class QuizUserProgressView(TemplateView):
                 userDetails.progressLevel = nextLevel
                 userDetails.save()
                 print( 'new-queried-user-level[ %d ]' % ( userDetails.progressLevel ) )
+                check_level_output = userDetails.progressLevel
         else:
                 #result = '\n\tYour total score[%d] in level[%d] is below the level requirements[%d]' % ( totalPercentScore,quizcategorylevel,totalPassMark )
             result = '\nNo Analysis required, you maintain your current level'
             print(result)
+            check_level_output = userprogresslevel
 
         confirmLevel = ProfileModel.objects.get( user=self.request.user )
         print( '\n\t\tat function end, this user\'s level is[ %d ]' % ( confirmLevel.progressLevel ) )
         print('\n')
-        return ''
+        return check_level_output
 
     def get_context_data(self, **kwargs):
         context = super(QuizUserProgressView, self).get_context_data(**kwargs)
@@ -214,7 +228,7 @@ class QuizUserProgressView(TemplateView):
         # kib edit
         sittingData = Sitting.objects.filter(user=self.request.user)
         context['yourSitting'] = sittingData
-        context[ 'testData' ] = self.check_level
+        context[ 'checkLevelOutput' ] = self.check_level
         return context
 
 
