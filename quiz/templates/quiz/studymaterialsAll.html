@@ -6,13 +6,13 @@
 {% endblock %}
 
 {% block hi %}
-	Study Materials <small> Control Center </small>
+	Study Materials <small> Hub </small>
 {% endblock %}
 
 {% block content %}
 
 	<p>
-		<i>You are {{ request.user }}, at level [ {{ request.user.user.progressLevel }} ].</i>
+		<i>You are currently at level [ <b>{{ request.user.user.progressLevel }}</b> ].</i>
 		<!-- , with id [{{ request.user.id }}], -->
 	</p>
 		<!--{% for category in categorydata %}

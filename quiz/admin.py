@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Quiz, Category, SubCategory, Progress, Question
+from .models import Quiz, Category, SubCategory, Progress, Question, Sitting
 from multichoice.models import MCQuestion, Answer
 from true_false.models import TF_Question
 from essay.models import Essay_Question
@@ -55,6 +55,7 @@ class QuizAdmin(admin.ModelAdmin):
     list_display = ('title', 'category', )
     list_filter = ('category',)
     search_fields = ('description', 'category', )
+    ordering = ['title']
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -65,10 +66,11 @@ class SubCategoryAdmin(admin.ModelAdmin):
     search_fields = ('sub_category', )
     list_display = ('sub_category', 'category',)
     list_filter = ('category',)
+    ordering = ['sub_category']
 
 
 class MCQuestionAdmin(admin.ModelAdmin):
-    list_display = ('content', 'category', )
+    list_display = ('content', 'sub_category' )
     list_filter = ('category',)
     fields = ('content', 'category', 'sub_category',
               'figure', 'quiz', 'explanation', 'answer_order')
@@ -77,6 +79,7 @@ class MCQuestionAdmin(admin.ModelAdmin):
     filter_horizontal = ('quiz',)
 
     inlines = [AnswerInline]
+    ordering = ['sub_category']
 
 
 class ProgressAdmin(admin.ModelAdmin):
@@ -110,4 +113,5 @@ admin.site.register(SubCategory, SubCategoryAdmin)
 admin.site.register(MCQuestion, MCQuestionAdmin)
 admin.site.register(Progress, ProgressAdmin)
 admin.site.register(TF_Question, TFQuestionAdmin)
+admin.site.register(Sitting)
 #admin.site.register(Essay_Question, EssayQuestionAdmin)

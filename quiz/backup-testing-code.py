@@ -32,3 +32,44 @@
                     print( 'User-percent-correct >> ' + str(examDetail.get_percent_correct) )
                     #totalPercentScore += examDetail.get_percent_correct
                     print('\n')
+
+
+    <ul>
+        <li>
+            {{quiztitle}}
+            <ol style="list-style-type: circle;" >
+                {% for qnid, qndata in qndict.items %}
+                <li>
+                    {{ qnid }}
+                    <ol style="list-style-type: square;">
+                        <li> {{ qndata.0 }} </li>
+                        <li> {{ qndata.1 }} </li>
+                        <li> {{ qndata.2 }} </li>
+                        <li> {{ qndata.3 }} </li>
+                    </ol>
+                </li>
+                {% endfor %}
+            </ol>
+        </li>
+    </ul>
+
+    <div class="card small">
+        <div class="card-content">
+            <span class="card-title"> {{ quiztitle }} </span>
+            <h6> {{ qndata.0 }} </h6>
+        </div>
+        <div class="card-tabs">
+            <ul class="tabs tabs-fixed-width">
+                <li class="tab">
+                    <a href="#subCat-{{qnid}}">Sub Category</a>
+                </li>
+                <li class="tab">
+                    <a href="#reason-{{qnid}}" class="active">Explanation</a>
+                </li>
+            </ul>
+        </div>
+        <div class="card-content grey lighten-4">
+            <div id="subCat-{{qnid}}"> {{ qndata.2 }} </div>
+            <div id="reason-{{qnid}}"> {{ qndata.3 }} </div>
+        </div>
+    </div>

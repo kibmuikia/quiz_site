@@ -226,7 +226,7 @@ class Progress(models.Model):
         a list of three integers.
 
         The first is the number of questions correct,
-        the second is the possible best score,
+        the second is the possible best score, (total number of questions in the quiz)
         the third is the percentage correct.
 
         The dict will have one key for every category that you have defined
@@ -436,6 +436,9 @@ class Sitting(models.Model):
 
     class Meta:
         permissions = (("view_sittings", _("Can see completed exams.")),)
+
+    def __str__(self):
+        return str(self.user)+'--'+str(self.quiz.title)
 
     def get_first_question(self):
         """

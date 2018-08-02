@@ -15,7 +15,7 @@ class UserForm( forms.ModelForm ):
 class ProfileForm( forms.ModelForm ):
 	class Meta:
 		model = ProfileModel
-		fields = [ 'account_type', 'pic', 'bio' ]
+		fields = [ 'pic', 'bio' ]
 
 # form - 'login'
 class loginForm( forms.Form ):

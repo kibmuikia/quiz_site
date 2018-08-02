@@ -8,7 +8,7 @@
 {% block description %} {% trans "User Progress Page" %} {% endblock %}
 
 {% block hi %}
-	Progress Dashboard
+	Progress <small>Dashboard</small>
 {% endblock %}
 
 {% block content %}
@@ -17,8 +17,7 @@
 		at level [ {{ request.user.user.progressLevel }} ].
 	</p>-->
 	<p>
-		You are <u>{{ request.user }}</u>, 
-		at level <b>[ {{ request.user.user.progressLevel }} ]</b>.
+		Your current progress level is <b> {{ checkLevelOutput }} </b>
 	</p>
 	<p>
 		Back to 
@@ -29,14 +28,92 @@
 		</a>
 	</p>
 
-	{% if checkLevelOutput %}
-		<p>
-			checkLevelOutput >> <b>{{ checkLevelOutput }}</b><br>
-			get-progressLevel >> <b>{{ request.user.user.progressLevel }}</b>
-		</p>
-	{% endif %}
+	{% if exams %}
 
-  {% if cat_scores %}
+  <hr>
+
+  <h1>{% trans "Exam Papers" %}</h1>
+  <p class="lead">
+	{% trans "Below are the results of exams that you have sat." %}
+  </p>
+
+  <table class="table table-bordered table-striped">
+
+	<thead>
+	  <tr>
+		<th>{% trans "Quiz Title" %}</th>
+		<th> {% trans "Category" %} </th>
+		<th>{% trans "Number of Correctly Answered" %}</th>
+		<th>{% trans "Total Number of Qns" %}</th>
+		<th>%</th>
+	  </tr>
+	</thead>
+
+	<tbody>
+
+	  {% for exam in exams %}
+
+	  <tr>
+		<td>{{ exam.quiz.title }}</td>
+		<td> {{ exam.quiz.category }} </td>
+		<td>{{ exam.current_score }}</td>
+		<td>{{ exam.get_max_score }}</td>
+		<td>{{ exam.get_percent_correct }}</td>
+	  </tr>
+
+	  {% endfor %}
+
+	</tbody>
+
+  </table>
+
+  {% endif %}
+
+	<br>
+
+	<h4> Quiz Progress Chart </h4>
+	<div class="section">
+		<canvas id="progressChart"></canvas>
+	</div>
+
+	<br>
+
+	<h5 class="center">Incorrect Question Analysis</h5>
+	<div class="row" style="overflow: auto">
+		<div class="col m6 offset-m3">
+	{% for quiztitle, qndict in qn_analysis.items %}
+	{% for qnid, qndata in qndict.items %}
+	<div class="card hoverable">
+		<div class="card-content">
+			<span class="card-title"> {{ qndata.0 }} </span>
+			<h6>
+				In Quiz:
+				<small> {{ quiztitle }} </small>
+			</h6>
+			<ul>
+				<li>
+					Explanation :
+					<ol style="list-style-type: circle;">
+						<li> {{ qndata.3 }} </li>
+					</ol>
+				</li>
+				<li>
+					Sub Category :
+					<ol style="list-style-type: circle;">
+						<li> {{ qndata.2 }} </li>
+					</ol>
+				</li>
+			</ul>
+		</div>
+	</div>
+	{% endfor %}
+	{% endfor %}
+		</div>
+	</div>
+
+	<br>
+
+  <!--{% if cat_scores %}
 
   <h1>{% trans "Question Category Scores" %}</h1>
 
@@ -45,8 +122,9 @@
 	<thead>
 	  <tr>
 		<th>{% trans "Category" %}</th>
-		<th>{% trans "Correctly answererd" %}</th>
+		<th>{% trans "Num' of Correctly answererd Qns" %}</th>
 		<th>{% trans "Incorrect" %}</th>
+		<th>{% trans "Total Number of Qns" %}</th>
 		<th>%</th>
 	  </tr>
 	</thead>
@@ -69,49 +147,12 @@
   </table>
 
 
-  {% endif %}
+  {% endif %}-->
 
-  {% if exams %}
-
-  <hr>
-
-  <h1>{% trans "Previous exam papers" %}</h1>
-  <p class="lead">
-	{% trans "Below are the results of exams that you have sat." %}
-  </p>
-
-  <table class="table table-bordered table-striped">
-
-	<thead>
-	  <tr>
-		<th>{% trans "Quiz Title" %}</th>
-		<th>{% trans "Score" %}</th>
-		<th>{% trans "Possible Score" %}</th>
-		<th>%</th>
-	  </tr>
-	</thead>
-
-	<tbody>
-
-	  {% for exam in exams %}
-
-	  <tr>
-		<td>{{ exam.quiz.title }}</td>
-		<td>{{ exam.current_score }}</td>
-		<td>{{ exam.get_max_score }}</td>
-		<td>{{ exam.get_percent_correct }}</td>
-	  </tr>
-
-	  {% endfor %}
-
-	</tbody>
-
-  </table>
-
-  {% endif %}
+  
 
   {% if yourSitting %}
-  <h4>Below are the actual perfomance information of your tests:</h4>
+  <h4>Actual performance breakdown on tests:</h4>
   <table class="highlight responsive-table centered">
   <thead>
   	<tr>
@@ -152,5 +193,45 @@
   </table>
   {% endif %}
 
+  <br>
+  <!--{{ sampleChart.as_html }}-->
+	<!--{% load jchart %}
 
+	{% render_chart 'sampleChart' %}-->
+	
+	
+
+
+{% endblock %}
+
+{% block extraScripts %}
+<script type="text/javascript">
+	var chart = document.getElementById("progressChart").getContext('2d');
+	var myChart = new Chart( chart, {
+		// type of cahrt
+		type: 'bar',//polarArea
+		responsive: 'True',
+		// data for dataset
+		data: {
+			labels: {{ examTitles|safe }},
+			datasets: [{
+				label: "User Progress Chart",
+				data: {{ examScores|safe }},
+				//hoverBackgroundColor: [ '#ff6384', '#ff4354', '#ff8463' ]
+			}]
+		},
+		// configuration options
+		options: {
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true
+					}
+				}]
+			}
+		}
+	} );
+	// context['examTitles'] = examTitleL
+   // context['examScores'] = examScoreL
+</script>
 {% endblock %}

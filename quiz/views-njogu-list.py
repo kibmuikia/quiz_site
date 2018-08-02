@@ -2,8 +2,9 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render, redirect, HttpResponse, HttpResponseRedirect, reverse
-from django.http import FileResponse, Http404
-
+from django.contrib.auth.decorators import login_required, permission_required
+from django.http import FileResponse, Http404,JsonResponse
+from django.utils.decorators import method_decorator
 # import generic views
 from django.views.generic import View, TemplateView
 from django.views import generic
@@ -13,17 +14,14 @@ from django.contrib.auth import authenticate, login, logout
 #from django.contrib.auth.decorators import login_required
 
 # import from forms.py
-from .forms import UserForm, ProfileForm, loginForm, testForm
+from .forms import UserForm, ProfileForm, loginForm, testForm,EditForm,ProfileEditForm
 
 from django.contrib.auth.models import User
 # import from models.py
 from .models import ProfileModel
+from quiz.models import Quiz, Category, Progress, Sitting, Question
 
 from django.forms.models import inlineformset_factory
-
-from django.core.management.base import BaseCommand
-
-from .resources import profilemodelResource
 
 # Create your views here.
 
@@ -69,7 +67,7 @@ class registerView( View ):
 
 	def get( self, request, **kwargs ):
 		uform = self.form_user( None )
-		AccountInlineFormSet = inlineformset_factory( User, ProfileModel, fields=('pic','bio') )
+		AccountInlineFormSet = inlineformset_factory( User, ProfileModel, fields=('account_type','pic','bio') )
 		pform = AccountInlineFormSet( None )
 		#pform = self.form_profile( None )
 
@@ -82,7 +80,7 @@ class registerView( View ):
 
 	def post( self, request, **kwargs ):
 		uform = self.form_user( request.POST )
-		AccountInlineFormSet = inlineformset_factory( User, ProfileModel, fields=('pic','bio') )
+		AccountInlineFormSet = inlineformset_factory( User, ProfileModel, fields=('account_type','pic','bio') )
 		pform = AccountInlineFormSet( request.POST, request.FILES )
 		#pform = self.form_profile( request.POST, request.FILES )
 
@@ -109,14 +107,11 @@ class registerView( View ):
 				created_user = authenticate( username=username, password=password )
 				if created_user is not None:
 					if created_user.is_active:
-						msg = '[ '+ username +' ] is registered and authenticated'
+						msg = '[ '+ username +' ] is registered and authenticated go ahead and login'
 						args = {
-						'site_message':msg
+						'Registration_Success':msg
 						}
-						# export table-ProfileModel to media/csvFiles/profilemodel.csv after a user is registered
-						ProfileModel.objects.to_csv('media/csvFiles/profilemodel_export.csv','user_id','user__username','user__email','pic','bio','account_type','progressLevel')
-						return render( request, 'site_users_index.html', args )
-						#return render( request, 'users-login.html', args )
+						return render( request, 'users-register.html', args )
 
 		args = {
 		'uform':uform,
@@ -136,7 +131,7 @@ class loginView( View ):
 			args = { 'message':'Already Logged-in' }
 			msg = 'Access to Login-form Denied, you are already logged in!'
 
-			return redirect( '/users/?site_message=%s' % msg )
+			return redirect( '/quiz/?site_message=%s' % msg )
 
 			#return render( request, 'site_users_index.html', args )
 
@@ -173,17 +168,12 @@ class loginView( View ):
 					'status':'Authenticated, Active, Logged-in and Session created.'
 					}
 
-					return redirect( '/users/?site_message=%s&just_logged_in=%s'
+					return redirect( '/quiz/?site_message=%s&just_logged_in=%s'
 											%( args['status'], username ) )
 					#return render( request, 'site_users_index.html', args )
 
 					#text = username + ' - is authenticated, active, action[login] performed and session created.'
 					#return HttpResponse(text)
-			else:
-				args = {
-					'status':'Invalid credentials'
-				}
-				return redirect( '/users/login/?site_message=%s' % ( args['status'] ) )
 
 		args = {
 		'loginform':lform
@@ -207,9 +197,8 @@ def logoutFunctionView( request ):
 		#return render( request, 'site_users_index.html', args )
 		msg = '['+out_user.username+'] logged out and session destroyed'
 
-		#return redirect( '/users/?just_logged_out=%s&site_message=%s' %(  args['just_logged_out'], msg ) )
-		return redirect( '/?just_logged_out=%s&site_message=%s' %( args['just_logged_out'], msg ) )
-
+		return redirect( '/quiz/?just_logged_out=%s&site_message=%s'
+		                %(  args['just_logged_out'], msg ) )
 	else:
 		#args = {
 		#'message':'log-out FAILED ![ not authenticated OR no session["loggedin_user"] present ]'
@@ -222,7 +211,7 @@ def logoutFunctionView( request ):
 
 # view profile details
 class profileView( TemplateView ):
-	template_name = 'details_user.html'
+	template_name = 'users-profile.html'
 
 	def get( self, request, *args, **kwargs ):
 
@@ -251,3 +240,55 @@ class testView( View ):
 
 		return render( request, self.form_test, args )
 		# end: get()
+
+class chartView(TemplateView):
+    template_name = 'users-chart.html'
+    
+    def displaydata(self,**kwargs):
+        userprogress= Progress.objects.filter(user=self.request.user)
+        pass 
+class analysisView(TemplateView):
+    template_name = 'user-analysis.html'
+
+    def get(self,request,*args,**kwargs):
+    	data = list(Sitting.objects.values_list('incorrect_questions', flat=True))
+    	#data.replace("<,>", "")
+    	str1 = ''.join(data)
+    	good=str1.split(",")
+    	good = list(filter(None, good)) 
+    	for s in good:
+
+    		frequency=good.count(s)
+
+    	result=max(set(good),key=good.count)
+    	plist=list(set(good))
+    	bad=good.count(result)
+    	
+    	args ={
+    	'overall':good,
+    	'plist':plist,
+    	'data':result,
+    	'bad':bad,
+    	#'frequency':frequency
+    	}
+    	return render(request,self.template_name,args)
+
+class updateView(TemplateView):
+	template_name ='users-update.html'
+	def get(self, request, *args, **kwargs):
+		user_edit_form = EditForm(instance=request.user)
+		profile_edit_form = ProfileEditForm(instance=request.user.user)
+		context = {
+		'user_form':user_edit_form,
+		'profile_form':profile_edit_form,
+		}
+		return render (request, self.template_name, context)
+	def post(self, request, *args,**kwargs):
+		user_edit_form =EditForm(data=request.POST or None,instance=request.user)
+		profile_edit_form =ProfileEditForm(data=request.POST or None,instance=request.user.user, files=request.FILES)
+
+		if user_edit_form.is_valid() and profile_edit_form.is_valid():
+			user_edit_form.save()
+			profile_edit_form.save()
+
+		return redirect( '/users/profile_details' )

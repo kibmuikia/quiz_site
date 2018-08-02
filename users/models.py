@@ -41,6 +41,7 @@ class ProfileModel( models.Model ):
 	bio = models.TextField(  default='', blank=True, max_length=140,
 	verbose_name='Biography' )
 	progressLevel = models.IntegerField( default=1 )
+	
 		# to enable exporting to file in csv format
 	objects = CopyManager()
 

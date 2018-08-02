@@ -6,6 +6,11 @@ from .views import QuizListView, CategoriesListView,\
 
 from . import views
 
+from jchart.views import ChartView
+
+# sample-chart is a class inheriting from jchart.Chart
+sampleChart = views.progChart()
+
 urlpatterns = [
                 
     # new home-page link
@@ -28,5 +33,8 @@ urlpatterns = [
     url( r'^(?P<slug>[\w-]+)/$', QuizDetailView.as_view(), name='quiz_start_page' ),
     
     url( r'^(?P<quiz_name>[\w-]+)/take/$', QuizTake.as_view(), name='quiz_question' ),
+
+    # chart-testing
+    url(r'^charts/sample_chart/$', ChartView.from_chart(sampleChart), name='sampleChart'),
 
 ]

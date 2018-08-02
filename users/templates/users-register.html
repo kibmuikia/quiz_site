@@ -4,8 +4,14 @@
 
 {% block stylesheets %}
 	{% load static %}
-	<link rel="stylesheet" type="text/css"
-	href="{% static 'users/css/form-register.css' %}" />
+	
+	<!----><link rel="stylesheet" type="text/css"
+	href="{% static 'users/css/form-register2.css' %}" />
+
+	<!-- materialize style rules -->
+   <link href="{% static 'users/css/materialize.css' %}" rel="stylesheet"
+   type="text/css" />
+
 {% endblock %}
 
 {% block links %}
@@ -52,9 +58,19 @@
 
 
 
-            <table class="responsive-table highlight" >
+            <table class="responsive-table highlight centered" width="97%" >
             	{{ pform.as_table }}
             </table>
+
+            <!--{% for pfield in pform %}
+            <div class="form-row">
+            	<span> {{ pfield.errors }} </span>
+               <label>
+                  <span> {{ pfield.label_tag }} </span>
+                  {{ pfield }}
+               </label>
+            </div>
+            {% endfor %}-->
 
             <!--
             {% for pformVal in pform %}

@@ -100,6 +100,14 @@
   {% endif %}
 
   <p>
+    Go to 
+    <a href="{% url 'quiz_progress' %}">
+      <button class="btn btn-small">
+        Progress Dashboard
+      </button>
+    </a>
+  </p>
+  <p>
     Back to 
     <a href="{% url 'quiz_home' %}">
       <button class="btn btn-small">
@@ -107,6 +115,7 @@
       </button>
     </a>
   </p>
+
 
 
 {% endblock %}

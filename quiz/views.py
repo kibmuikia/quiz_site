@@ -14,6 +14,10 @@ from .forms import QuestionForm, EssayForm
 from .models import Quiz, Category, Progress, Sitting, Question
 from essay.models import Essay_Question
 from users.models import ProfileModel
+from jchart import Chart
+from jchart.config import DataSet
+
+from .charts import lineChart, progressChart
 
 from .resources import sittingResource, progressResource, quizResource, questionResource
 
@@ -61,6 +65,40 @@ class homeView( View ):
         pass
 # end : homeView
 
+# trying charts
+class progChart( Chart ):
+    chart_type = 'line'
+    responsive = True
+
+    def get_datasets( self, **kwargs ):
+        print('\tIn funct-get_datasets')
+
+        # test run
+        data = [{
+            'label' : "Testing progChart",
+            'data' : [10,234,187,44,88,111,94],
+            #'x':['one','two','three','four','five','six','seven']
+        }]
+
+        # output, for instance, Progress-model data
+        progModelData, u = Progress.objects.get_or_create(user=26)
+        progExam = progModelData.show_exams()
+        titleList = []
+        scoreList = []
+        for prog in progExam:
+            titleList.append(prog.quiz.title)
+            scoreList.append(prog.get_percent_correct)
+        print(titleList)
+        print(scoreList)
+        #data = [{'x': sitting.quiz.title, 'y': int(sitting.current_score)} for sitting in sitModelData]
+        data = [{
+            'label':titleList,
+            #'label':'User Progress Chart',
+            'data': scoreList
+        }]
+        #return [DataSet(data=data)]        
+        return data
+# END: chart-trial
 
 class QuizMarkerMixin(object):
     @method_decorator(login_required)
@@ -141,24 +179,24 @@ class QuizUserProgressView(TemplateView):
 
     def check_level( self, ** kwargs ):
         userprogresslevel = self.request.user.user.progressLevel
-        print( '\n\tUser-progressLevel :: ' + str(userprogresslevel) + '\n')
+        print( '\n\tUser-progressLevel :: ' + str(userprogresslevel) )
         
         quizdata = Quiz.objects.filter( category__level=userprogresslevel )
-        print( '\nShowing quiz-data filtered with current user\'s level :: \n ' )
-        print( quizdata )
+        #print( '\nShowing quiz-data filtered with current user\'s level :: \n ' )
+        #print( quizdata )
         passmark_touse = 0
         for quizdataVal in quizdata:
             queried_passmark = quizdataVal.pass_mark
-            print( 'queried_passmark :: %d' % ( queried_passmark ) )
+            #print( 'queried_passmark :: %d' % ( queried_passmark ) )
             passmark_touse += queried_passmark
         print( '\tpassmark_touse :: %d' % ( passmark_touse ) )
-        print( '\nDone showing quiz-data.\n' )
+        #print( '\nDone showing quiz-data.\n' )
 
         userprog = Progress.objects.filter( user=self.request.user )
         for user in userprog:
             print( user )
                 # print( user.user.progressLevel ) << Error: 'User' object has no attribute 'progressLevel'
-            print('\n')
+            #print('\n')
             userExam = user.show_exams()
             print( userExam )
             print('\n\tjust shown userExam(has all quizzes done), going to userExam2...\n')
@@ -172,15 +210,14 @@ class QuizUserProgressView(TemplateView):
                 for examDetail in userExam2:
                     print( examDetail )
                     quizcategorylevel = examDetail.quiz.category.level
-                    #if quizcategorylevel == userprogresslevel:
                     print( 'Quiz-title >> ' + examDetail.quiz.title )
-                    print( 'Quiz-category >> ' + examDetail.quiz.category.category )
+                    #print( 'Quiz-category >> ' + examDetail.quiz.category.category )
                     quizcategorylevel = examDetail.quiz.category.level
                     print( 'Quiz-category-level >> ' + str( quizcategorylevel ) )
-                    print( 'Quiz-pass_mark >> ' + str(examDetail.quiz.pass_mark) )
+                    #print( 'Quiz-pass_mark >> ' + str(examDetail.quiz.pass_mark) )
                     totalPassMark += examDetail.quiz.pass_mark
                     print( 'User-current-score(no. of correctly answered qns) >> ' + str(examDetail.current_score) )
-                    print( 'Quiz-max-score(no. of qns) >> ' + str(examDetail.get_max_score) )
+                    #print( 'Quiz-max-score(no. of qns) >> ' + str(examDetail.get_max_score) )
                     print( 'User-percent-correct >> ' + str(examDetail.get_percent_correct) )
                     totalPercentScore += examDetail.get_percent_correct
                     print('\n')
@@ -220,15 +257,87 @@ class QuizUserProgressView(TemplateView):
         print('\n')
         return check_level_output
 
+    def incorrectAnalysis(self, **kwargs):
+        print( 'Getting user progress data' )
+        userProgressData = Progress.objects.filter( user=self.request.user )
+        print( userProgressData )
+        allIncorrectDict = {}
+
+        for progvalue in userProgressData:
+            print( progvalue )
+            examinfo = progvalue.show_exams().order_by( 'quiz__title' )
+            if examinfo:
+                print( examinfo )
+                for detail in examinfo:
+                    print( '\n' )
+                    qtitle = detail.quiz.title
+                    #print( qtitle )
+                    qcat_level = detail.quiz.category.level
+                    qcat_level = str( qcat_level )
+                    #print( qcat_level )
+                    new_qtitle = qtitle + '@' + qcat_level
+                    print( new_qtitle )
+                    # print( (new_qtitle.split('@'))[1] ) :: to get back category level
+                    qstate = detail.complete
+                    #print( 'Has been complete? > %s' % (str(qstate)) )
+                    qscore = detail.current_score
+                    print( 'correct-qns : %d' % (qscore) )
+
+                    qincorrect = detail.incorrect_questions
+                    qincorrect = qincorrect.split(',')
+                    listOfIncorrect = list( filter(None, qincorrect) )
+                    print( listOfIncorrect )
+                    allIncorrectDict[ new_qtitle ] = listOfIncorrect
+
+                    qnData_dict = {}
+                    for each_incorrect in listOfIncorrect:
+                        qnData = Question.objects.get( id=int(each_incorrect) )
+                        qn_id = int(each_incorrect)
+                        qn_content = qnData.content
+                        qn_cat_level = qnData.category.level
+                        qn_subcat = qnData.sub_category
+                        qn_reason = qnData.explanation
+                        qnData_list = [ qn_id, qn_cat_level, qn_subcat, qn_reason ]
+                        #print( qnData_list )
+                        qnData_dict[ qn_id ] = [ qn_content, qn_cat_level, qn_subcat, qn_reason ]
+                        #print( qnData_dict[qn_id] )
+                    
+                    print( qnData_dict )
+                    allIncorrectDict[ new_qtitle ] = qnData_dict
+
+            else:
+                print('No exam has been done, yet.')
+
+        print('\n')
+        #if allIncorrectDict != '':
+        print( allIncorrectDict )
+
+        analysisOutput = allIncorrectDict
+
+        return analysisOutput
+
     def get_context_data(self, **kwargs):
         context = super(QuizUserProgressView, self).get_context_data(**kwargs)
         progress, c = Progress.objects.get_or_create(user=self.request.user)
         context['cat_scores'] = progress.list_all_cat_scores
-        context['exams'] = progress.show_exams()
+        exams = progress.show_exams()
+        context['exams'] = exams
+        examTitleL = []
+        examScoreL = []
+        for exam in exams:
+            examTitleL.append(exam.quiz.title)
+            examScoreL.append(exam.get_percent_correct)
+        print(examTitleL)
+        print(examScoreL)
         # kib edit
         sittingData = Sitting.objects.filter(user=self.request.user)
         context['yourSitting'] = sittingData
         context[ 'checkLevelOutput' ] = self.check_level
+        context['qn_analysis'] = self.incorrectAnalysis
+        #context['sampleChart'] = progChart()
+        context['examTitles'] = examTitleL
+        context['examScores'] = examScoreL
+
         return context
 
 

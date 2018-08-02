@@ -52,6 +52,8 @@ INSTALLED_APPS = [
 
     'import_export',
 
+    'jchart',
+
     # for application[ qa ]
     #'qa',
     #'taggit',
