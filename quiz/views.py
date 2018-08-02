@@ -1,4 +1,5 @@
 import random
+import collections
 
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import PermissionDenied
@@ -258,62 +259,121 @@ class QuizUserProgressView(TemplateView):
         return check_level_output
 
     def incorrectAnalysis(self, **kwargs):
-        print( 'Getting user progress data' )
+        print( '\tIncorrect-Qn-Analysis starting ...' )
+        all_x_dict = {}
+
         userProgressData = Progress.objects.filter( user=self.request.user )
-        print( userProgressData )
-        allIncorrectDict = {}
+        if userProgressData:
+            print('\tUser Has progress data !!')
+            for progress in userProgressData:
+                #print(progress)  sample-output>> Progress object (28)
 
-        for progvalue in userProgressData:
-            print( progvalue )
-            examinfo = progvalue.show_exams().order_by( 'quiz__title' )
-            if examinfo:
-                print( examinfo )
-                for detail in examinfo:
-                    print( '\n' )
-                    qtitle = detail.quiz.title
-                    #print( qtitle )
-                    qcat_level = detail.quiz.category.level
-                    qcat_level = str( qcat_level )
-                    #print( qcat_level )
-                    new_qtitle = qtitle + '@' + qcat_level
-                    print( new_qtitle )
-                    # print( (new_qtitle.split('@'))[1] ) :: to get back category level
-                    qstate = detail.complete
-                    #print( 'Has been complete? > %s' % (str(qstate)) )
-                    qscore = detail.current_score
-                    print( 'correct-qns : %d' % (qscore) )
+                    # Getting exams data via 'show_exams()'
+                examData = progress.show_exams().order_by('quiz__title')
+                    # verify if examData has data
+                if examData:
+                    print('\tExams data FOUND !')
+                    #print(examData)  sample-output>> <QuerySet [<Sitting: studone--1-digital-logic-circuits-num1>, <Sitting: studone--1-digital-logic-circuits-num2>]>
+                        
+                        # variables initialization
+                    totalQuizzes = []
+                    totalIncList = []
+                    totalSubCatList = []
+                    totalCatList = []
+                    qndatalist = []
+                    for quizData in examData:
+                            # title data
+                        qtitle = quizData.quiz.title
+                        totalQuizzes.append(qtitle)
+                        qcatlevel = quizData.quiz.category.level # type [int]
+                        new_qtitle = '%s@%d' % (qtitle,qcatlevel)
+                        qcat = quizData.quiz.category.category
+                        #print(type(qcat))
+                        totalCatList.append(qcat)
+                            # incorrect-questions data
+                        qincorrect = quizData.incorrect_questions
+                        qincorrect = qincorrect.split(',')
+                        qincorrect = list(filter(None,qincorrect))
+                        all_x_dict[new_qtitle] = qincorrect
+                        totalIncList.append(qincorrect)
+                        # END for-loop
 
-                    qincorrect = detail.incorrect_questions
-                    qincorrect = qincorrect.split(',')
-                    listOfIncorrect = list( filter(None, qincorrect) )
-                    print( listOfIncorrect )
-                    allIncorrectDict[ new_qtitle ] = listOfIncorrect
+                    print(len(totalQuizzes))
+                    print(all_x_dict)
+                    totalIncList = sum( totalIncList, [] )
+                    print(totalIncList)
+                    #totalCatList = sum( totalCatList, [] )
+                    #print( totalCatList )
 
-                    qnData_dict = {}
-                    for each_incorrect in listOfIncorrect:
-                        qnData = Question.objects.get( id=int(each_incorrect) )
-                        qn_id = int(each_incorrect)
-                        qn_content = qnData.content
-                        qn_cat_level = qnData.category.level
-                        qn_subcat = qnData.sub_category
-                        qn_reason = qnData.explanation
-                        qnData_list = [ qn_id, qn_cat_level, qn_subcat, qn_reason ]
-                        #print( qnData_list )
-                        qnData_dict[ qn_id ] = [ qn_content, qn_cat_level, qn_subcat, qn_reason ]
-                        #print( qnData_dict[qn_id] )
-                    
-                    print( qnData_dict )
-                    allIncorrectDict[ new_qtitle ] = qnData_dict
+                    for incorrect in totalIncList:
+                        incorrect = int(incorrect)
+                            # Get incorrect-qn data
+                        qndata = Question.objects.filter(id=incorrect)
+                        for qn in qndata:
+                            qn_subcat = qn.sub_category.sub_category
+                            totalSubCatList.append( qn_subcat )
+                            qn_content = qn.content
+                            qn_explanation = qn.explanation
+                            qlist = [ incorrect, qn_subcat, qn_content, qn_explanation ]
+                            qndatalist.append(qlist)
+                            # #
+                        # #
+                    #print(len(qndatalist))
+                    subcatCounter=collections.Counter( totalSubCatList )
+                    print( subcatCounter )
+                    if len(totalQuizzes) >= 2:
+                        qnslist = []
+                        for subcat in subcatCounter.keys():
+                            print(subcat)
+                            qns = Question.objects.filter( sub_category__sub_category=subcat, quiz__title__isnull=True )
+                            qns = list(qns)
+                            qnslist.append(qns)
+                            # #
+                        qnslist = sum( qnslist, [] )
+                        print(qnslist)
+                        u = ProfileModel.objects.filter(user=self.request.user)
+                        for u_val in u:
+                            got_level = u_val.progressLevel
+                        print(got_level)
+                        gotcatData = Category.objects.filter(level=got_level)
+                        for gotcat in gotcatData:
+                            gotcat = gotcat
+                        print(gotcat)
+                        r = random.randint(101,999)
+                        print(r)
+                        new_q_name = 'quiz-%d'%(r)
+                        print(new_q_name)
+                        new_q_name_url = new_q_name + '-url'
+                        print(new_q_name_url)
+                        quizCreate = Quiz.objects.create(title=new_q_name,url=new_q_name_url,category=gotcat,random_order=True,answers_at_end=True,exam_paper=True,pass_mark=55,)
+                        created = Quiz.objects.filter(title=new_q_name)
+                        for quizCreateVal in created:
+                            gotquizTitle = quizCreateVal.title
+                            print(gotquizTitle)
+                        for q in qnslist:
+                            #test = Question.objects.filter(content=q).update(quiz=quizCreate)
+                            #print(test)
+                            #print(q)
+                            #print(q.category)
+                            #print(random.randint(101,999))
+                            q.quiz.set(gotquizTitle)
+                            q.save()
+                            pass
+                            # #
+                    else:
+                        print('\tToo few exams attempted by user.')
+                    #print( subcatCounter.most_common(2) )
+                else:
+                    print('\tNo Exams data found')
+        else:
+            print('\tUser has no progress data')
 
-            else:
-                print('No exam has been done, yet.')
+        
+
+        # code
 
         print('\n')
-        #if allIncorrectDict != '':
-        print( allIncorrectDict )
-
-        analysisOutput = allIncorrectDict
-
+        analysisOutput = qndatalist
         return analysisOutput
 
     def get_context_data(self, **kwargs):

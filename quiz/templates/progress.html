@@ -79,17 +79,42 @@
 	<br>
 
 	<h5 class="center">Incorrect Question Analysis</h5>
-	<div class="row" style="overflow: auto">
+	<div class="row">
+		{% for qnlist in qn_analysis %}
+		<div class="col m6 offset-m3">
+			<div class="card hoverable">
+				<div class="card-content">
+					<span class="card-title"> {{qnlist.2}} </span>
+					<ul>
+						<li>
+							<b>Explanation:</b>
+							<ol style="list-style-type: circle;">
+								<li> {{qnlist.3}} </li>
+							</ol>
+						</li>
+						<li>
+							<b>Sub Category:</b>
+							<ol style="list-style-type: circle;">
+								<li> {{qnlist.1}} </li>
+							</ol>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+	<!--<div class="row" style="overflow: auto">
 		<div class="col m6 offset-m3">
 	{% for quiztitle, qndict in qn_analysis.items %}
 	{% for qnid, qndata in qndict.items %}
 	<div class="card hoverable">
 		<div class="card-content">
-			<span class="card-title"> {{ qndata.0 }} </span>
 			<h6>
 				In Quiz:
 				<small> {{ quiztitle }} </small>
 			</h6>
+			<span class="card-title"> {{ qndata.0 }} </span>
 			<ul>
 				<li>
 					Explanation :
@@ -109,7 +134,7 @@
 	{% endfor %}
 	{% endfor %}
 		</div>
-	</div>
+	</div>-->
 
 	<br>
 
