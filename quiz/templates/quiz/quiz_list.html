@@ -39,6 +39,7 @@
 				Quiz Dashboard
 			</button>
 		</a>
+			
 	</p>
     
     {% if quiz_list %}
@@ -65,7 +66,8 @@
 			  <td>{{ quiz.single_attempt }}</td>
 			  <td>
 				<a href="{% url 'quiz_start_page' slug=quiz.url %}" class="btn">
-				  {% trans "View details" %}
+					<!--   /quiz/{{ quiz.url }}/ -->
+					{% trans "View details" %}
 				</a>
 			</tr>
 

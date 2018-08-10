@@ -1,0 +1,115 @@
+		for progvalue in userProgressData:
+            print( progvalue )
+            examinfo = progvalue.show_exams().order_by( 'quiz__title' )
+
+            if examinfo:
+                print( examinfo )
+                for detail in examinfo:
+                    print( '\n' )
+                    qtitle = detail.quiz.title
+                    qcat_level = detail.quiz.category.level
+                    qcat_level = str( qcat_level )
+                    new_qtitle = qtitle + '@' + qcat_level
+                    print( new_qtitle )
+                    # print( (new_qtitle.split('@'))[1] ) :: to get back category level
+                    qstate = detail.complete
+                    #print( 'Has been complete? > %s' % (str(qstate)) )
+                    qscore = detail.current_score
+                    print( 'correct-qns : %d' % (qscore) )
+
+                    qincorrect = detail.incorrect_questions
+                    qincorrect = qincorrect.split(',')
+                    listOfIncorrect = list( filter(None, qincorrect) )
+                    print( listOfIncorrect )
+
+            else:
+                print('No exam has been done, yet.')
+
+# more code
+
+# trying charts
+class progChart( Chart ):
+    chart_type = 'line'
+    responsive = True
+
+    def get_datasets( self, **kwargs ):
+        print('\tIn funct-get_datasets')
+
+        # test run
+        data = [{
+            'label' : "Testing progChart",
+            'data' : [10,234,187,44,88,111,94],
+            #'x':['one','two','three','four','five','six','seven']
+        }]
+
+        # output, for instance, Progress-model data
+        progModelData, u = Progress.objects.get_or_create(user=26)
+        progExam = progModelData.show_exams()
+        titleList = []
+        scoreList = []
+        for prog in progExam:
+            titleList.append(prog.quiz.title)
+            scoreList.append(prog.get_percent_correct)
+        print(titleList)
+        print(scoreList)
+        #data = [{'x': sitting.quiz.title, 'y': int(sitting.current_score)} for sitting in sitModelData]
+        data = [{
+            'label':titleList,
+            #'label':'User Progress Chart',
+            'data': scoreList
+        }]
+        #return [DataSet(data=data)]        
+        return data
+# END: chart-trial
+
+# sample-chart is a class inheriting from jchart.Chart
+sampleChart = views.progChart()
+
+# chart-testing
+url(r'^charts/sample_chart/$', ChartView.from_chart(sampleChart), name='sampleChart'),
+
+	# MORE code
+
+					#if len(totalQuizzes) >= 2:
+                        #qnslist = []
+                        #for subcat in subcatCounter.keys():
+                            #print(subcat)
+                            #qns = Question.objects.filter( sub_category__sub_category=subcat, quiz__title__isnull=True )
+                            #qns = list(qns)
+                            #qnslist.append(qns)
+                            # #
+                        #qnslist = sum( qnslist, [] )
+                        #print(qnslist)
+                        #u = ProfileModel.objects.filter(user=self.request.user)
+                        #for u_val in u:
+                            #got_level = u_val.progressLevel
+                        #print(got_level)
+                        #gotcatData = Category.objects.filter(level=got_level)
+                        #for gotcat in gotcatData:
+                            #gotcat = gotcat
+                        #print(gotcat)
+                        #r = random.randint(101,999)
+                        #print(r)
+                        #new_q_name = 'quiz-%d'%(r)
+                        #print(new_q_name)
+                        #new_q_name_url = new_q_name + '-url'
+                        #print(new_q_name_url)
+                        #quizCreate = Quiz.objects.create(title=new_q_name,url=new_q_name_url,category=gotcat,random_order=True,answers_at_end=True,exam_paper=True,pass_mark=55,)
+                        #created = Quiz.objects.filter(title=new_q_name)
+                        #for quizCreateVal in created:
+                            #gotquizTitle = quizCreateVal.title
+                            #print(gotquizTitle)
+                            #pass
+                        #for q in qnslist:
+                            #test = Question.objects.filter(content=q).update(quiz=quizCreate)
+                            #print(test)
+                            #print(q)
+                            #print(q.category)
+                            #print(random.randint(101,999))
+                            #q.quiz.set(str(gotquizTitle))
+                            #q.save()
+                            #pass
+                            # #
+                    #else:
+                        #print('\tToo few exams attempted by user.')
+                    #print( subcatCounter.most_common(2) )

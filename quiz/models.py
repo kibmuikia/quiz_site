@@ -80,7 +80,7 @@ class Quiz(models.Model):
         blank=True, help_text=_("a description of the quiz"))
 
     url = models.SlugField(
-        max_length=60, blank=False,
+        max_length=80, blank=False,
         help_text=_("a user friendly url"),
         verbose_name=_("user friendly url"))
 

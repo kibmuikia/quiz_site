@@ -1,3 +1,4 @@
 user_id,username,email,pic,bio,account_type,progressLevel
+27,studone,studone@mail.com,27-STUDONE.jpg,pwd:pass1234,STUD,1
+28,studtwo,studtwo@mail.com,users/account_images/user_28/28-STUDTWO.png,pwd:pass1234,STUD,1
 1,admin,muikiaa@gmail.com,users/account_images/user_1/1-ADMIN.jpg,"",LEC,1
-27,studone,studone@mail.com,users/account_images/user_27/27-STUDONE.jpg,pwd:pass1234,STUD,1

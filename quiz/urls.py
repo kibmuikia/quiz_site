@@ -1,20 +1,20 @@
+# -*- coding: utf-8 -*-
 from django.conf.urls import url #patterns,
 
 from .views import QuizListView, CategoriesListView,\
     ViewQuizListByCategory, QuizUserProgressView, QuizMarkingList,\
-    QuizMarkingDetail, QuizDetailView, QuizTake
+    QuizMarkingDetail, QuizDetailView, QuizTake, quizGeneration
 
 from . import views
 
-from jchart.views import ChartView
-
-# sample-chart is a class inheriting from jchart.Chart
-sampleChart = views.progChart()
+#from jchart.views import ChartView
 
 urlpatterns = [
                 
     # new home-page link
     url( r'^$', views.homeView.as_view(), name='quiz_home' ),
+    
+    url( r'^qGen/$', views.quizGeneration ),
 
     url( r'^all-study-materials/$', views.allPdfsView.as_view(), name='allPdfs_link' ),
     
@@ -34,7 +34,5 @@ urlpatterns = [
     
     url( r'^(?P<quiz_name>[\w-]+)/take/$', QuizTake.as_view(), name='quiz_question' ),
 
-    # chart-testing
-    url(r'^charts/sample_chart/$', ChartView.from_chart(sampleChart), name='sampleChart'),
 
 ]

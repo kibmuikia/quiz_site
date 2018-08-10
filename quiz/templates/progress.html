@@ -21,12 +21,40 @@
 	</p>
 	<p>
 		Back to 
-		<a href="{% url 'quiz_home' %}">
+		<a href="{% url 'quiz_home' %}" class="">
 			<button class="btn btn-small red lighten-1 waves-effect waves-light">
 				Quiz Dashboard
 			</button>
 		</a>
+		<a href="{% url 'quiz_progress' %}" class="right" title="Refress Progress Page">
+			<button class="btn btn-floating waves-effect waves-light">
+				<i class="material-icons">refresh</i>
+			</button>
+		</a>
 	</p>
+
+	<br>
+	<div class="section">
+		<a href="/quiz/qGen/">
+			<button class="btn waves-light waves-effect">
+				Tests Analysis
+			</button>
+		</a>
+		<p class="black-text">
+			{% if analysis_status == 'present' %}
+				Analysis :: {{ analysis_message }}. 
+				<!--<a href="/quiz/{{ qGen_url }}/"> /quiz/{{qGen_url}}/take/ -->
+				<a href="{% url 'quiz_start_page' slug=qGen_url %}">
+					<button class="btn btn-small">
+						Generated Quiz[ {{ qGen_url }} ]
+					</button>
+				</a>
+			{% else %}
+				Analysis :: {{ analysis_message }}
+			{% endif %}
+		</p>
+	</div>
+	<br>
 
 	{% if exams %}
 
@@ -87,15 +115,15 @@
 					<span class="card-title"> {{qnlist.2}} </span>
 					<ul>
 						<li>
-							<b>Explanation:</b>
-							<ol style="list-style-type: circle;">
-								<li> {{qnlist.3}} </li>
-							</ol>
-						</li>
-						<li>
 							<b>Sub Category:</b>
 							<ol style="list-style-type: circle;">
 								<li> {{qnlist.1}} </li>
+							</ol>
+						</li>
+						<li>
+							<b>Explanation:</b>
+							<ol style="list-style-type: circle;">
+								<li> {{qnlist.3}} </li>
 							</ol>
 						</li>
 					</ul>
@@ -104,37 +132,6 @@
 		</div>
 		{% endfor %}
 	</div>
-	<!--<div class="row" style="overflow: auto">
-		<div class="col m6 offset-m3">
-	{% for quiztitle, qndict in qn_analysis.items %}
-	{% for qnid, qndata in qndict.items %}
-	<div class="card hoverable">
-		<div class="card-content">
-			<h6>
-				In Quiz:
-				<small> {{ quiztitle }} </small>
-			</h6>
-			<span class="card-title"> {{ qndata.0 }} </span>
-			<ul>
-				<li>
-					Explanation :
-					<ol style="list-style-type: circle;">
-						<li> {{ qndata.3 }} </li>
-					</ol>
-				</li>
-				<li>
-					Sub Category :
-					<ol style="list-style-type: circle;">
-						<li> {{ qndata.2 }} </li>
-					</ol>
-				</li>
-			</ul>
-		</div>
-	</div>
-	{% endfor %}
-	{% endfor %}
-		</div>
-	</div>-->
 
 	<br>
 
@@ -191,7 +188,7 @@
   		<th>incorrect_qns</th>
   		<th>current_score</th>
   		<th>complete</th>
-  		<th>user_answers</th>
+  		<th>Your Answers</th>
   		<!--<th>start</th>
   		<th>end</th>-->
   	</tr>
@@ -217,15 +214,6 @@
   </tbody>
   </table>
   {% endif %}
-
-  <br>
-  <!--{{ sampleChart.as_html }}-->
-	<!--{% load jchart %}
-
-	{% render_chart 'sampleChart' %}-->
-	
-	
-
 
 {% endblock %}
 
