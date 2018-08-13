@@ -67,6 +67,17 @@ class SubCategory(models.Model):
     def __str__(self):
         return self.sub_category + " (" + self.category.category + ")"
 
+class studyResource( models.Model ):
+    name = models.CharField( verbose_name="Resource Name", max_length=250, unique=True )
+    path = models.FileField( max_length=1024, null=True, blank=True, upload_to='study/uploaded/' )
+    level = models.IntegerField( null=True, blank=True )
+    category = models.ForeignKey( Category, on_delete=models.CASCADE, null=True, blank=True)
+    pic = models.ImageField(upload_to='study/uploaded/',
+                               blank=True,
+                               null=True,
+                               verbose_name=_("Resource Figure"))
+    def __str__(self):
+        return self.name
 
 @python_2_unicode_compatible
 class Quiz(models.Model):

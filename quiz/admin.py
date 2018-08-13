@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Quiz, Category, SubCategory, Progress, Question, Sitting
+from .models import Quiz, Category, SubCategory, Progress, Question, Sitting, studyResource
 from multichoice.models import MCQuestion, Answer
 from true_false.models import TF_Question
 from essay.models import Essay_Question
@@ -71,7 +71,7 @@ class SubCategoryAdmin(admin.ModelAdmin):
 
 class MCQuestionAdmin(admin.ModelAdmin):
     list_display = ('content', 'sub_category' )
-    list_filter = ('category',)
+    list_filter = ('sub_category',)
     fields = ('content', 'category', 'sub_category',
               'figure', 'quiz', 'explanation', 'answer_order')
 
@@ -114,4 +114,5 @@ admin.site.register(MCQuestion, MCQuestionAdmin)
 admin.site.register(Progress, ProgressAdmin)
 admin.site.register(TF_Question, TFQuestionAdmin)
 admin.site.register(Sitting)
+admin.site.register( studyResource )
 #admin.site.register(Essay_Question, EssayQuestionAdmin)

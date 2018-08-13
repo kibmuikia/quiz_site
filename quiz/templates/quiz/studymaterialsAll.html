@@ -11,22 +11,16 @@
 
 {% block content %}
 
-	<p>
-		<i>You are currently at level [ <b>{{ request.user.user.progressLevel }}</b> ].</i>
-		<!-- , with id [{{ request.user.id }}], -->
-	</p>
-		<!--{% for category in categorydata %}
-			<p>
-				{{ category.level }}
-			</p>
-		{% endfor %}-->
-	<p>
-		Back to 
-		<a href="{% url 'quiz_home' %}">
+	<p class="right">
+		<a href="#" onClick="javascript:history.go(-1);"><!-- {% url 'quiz_home' %} -->
 			<button class="btn btn-small red lighten-1 waves-effect waves-light">
-				Quiz Dashboard
+				Back
 			</button>
 		</a>
+	</p>
+	<br>
+	<p class="center">
+		<i>You are currently at level [ <b>{{ request.user.user.progressLevel }}</b> ].</i>
 	</p>
 	
 	<h5>We recommend the following study resources as you undertake this course:</h5>

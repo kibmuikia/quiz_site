@@ -7,7 +7,7 @@
 {% block description %} {{ quiz.title }} - {{ quiz.description }} {% endblock %}
 
 {% block hi %}
-	[ question.html ]
+	Questions
 {% endblock %}
 
 {% block content %}
@@ -52,9 +52,13 @@
 </div>
 {% endif %}
 
-<p>
+<!--<p>
   <small class="muted">{% trans "Question category" %}:</small>
   <strong>{{ question.category }}</strong>
+</p>-->
+<p>
+  <small class="muted">Sub-category:</small>
+  <strong>{{ question.sub_category }}</strong>
 </p>
 
 <p class="lead">{{ question.content }}</p>
@@ -84,6 +88,14 @@
 {% endif %}
 
 <hr>
+
+<p class="right">
+	<a href="#" onClick="javascript:history.go(-1);">
+		<button class="btn red">
+			Back
+		</button>
+	</a>
+</p>
 
 
 {% endblock %}

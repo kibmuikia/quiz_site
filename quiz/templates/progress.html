@@ -16,21 +16,26 @@
 		You are {{ request.user }}, with id [{{ request.user.id }}], 
 		at level [ {{ request.user.user.progressLevel }} ].
 	</p>-->
-	<p>
-		Your current progress level is <b> {{ checkLevelOutput }} </b>
-	</p>
-	<p>
-		Back to 
-		<a href="{% url 'quiz_home' %}" class="">
+	<p id="linkWrap">
+		<a href="#" onClick="javascript:history.go(-1);">
+			<button class="btn teal">
+				Back
+			</button>
+		</a>
+		<!--Back to <a href="{% url 'quiz_home' %}" class="">
 			<button class="btn btn-small red lighten-1 waves-effect waves-light">
 				Quiz Dashboard
 			</button>
-		</a>
+		</a>-->
 		<a href="{% url 'quiz_progress' %}" class="right" title="Refress Progress Page">
 			<button class="btn btn-floating waves-effect waves-light">
 				<i class="material-icons">refresh</i>
 			</button>
 		</a>
+	</p>
+	
+	<p class="center">
+		<u>Your current progress level is <b> {{ checkLevelOutput }} </b></u>
 	</p>
 
 	<br>
@@ -106,8 +111,8 @@
 
 	<br>
 
-	<h5 class="center">Incorrect Question Analysis</h5>
 	<div class="row">
+		<h5 class="center">Incorrect Question Analysis</h5>
 		{% for qnlist in qn_analysis %}
 		<div class="col m6 offset-m3">
 			<div class="card hoverable">
@@ -182,7 +187,7 @@
   		<th>user</th>-->
   		<th>quiz</th>
   		<th>category</th>
-  		<th>cat-Level</th>
+  		<th>level</th>
   		<!--<th>question_order</th>
   		<th>question_list</th>-->
   		<th>incorrect_qns</th>

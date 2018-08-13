@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block hi %}
-	All-Quizzes <small>Hub</small>
+	Quiz <small>description</small>
 {% endblock %}
 
 {% block content %}
@@ -43,10 +43,9 @@
 	</p>
 
 	<p>
-		Back to 
-		<a href="{% url 'quiz_home' %}">
+		<a href="#" onClick="javascript:history.go(-1);"><!-- {% url 'quiz_home' %} -->
 			<button class="btn btn-small red lighten-1 waves-effect waves-light">
-				Quiz Dashboard
+				Back
 			</button>
 		</a>
 	</p>

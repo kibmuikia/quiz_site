@@ -184,7 +184,7 @@ class QuizUserProgressView(TemplateView):
                 break
         
         if status == 'proceed' and userprogresslevel == quizcategorylevel and totalPercentScore >= passmark_touse:
-            data = '\nTotal-pass-mark[ %d ] :: Total-percent-score[ %d ] in cat-level[ %s ]' % ( totalPassMark, totalPercentScore, str(quizcategorylevel) )
+            data = '\nTotal-pass-mark[ %d ] :: Total-percent-score[ %d ] in cat-level[ %s ]' % ( passmark_touse, totalPercentScore, str(quizcategorylevel) )
             print( data )
             result = '\tYou have met the level requirements, proceed to the next level'
             print( result )
@@ -368,7 +368,7 @@ def quizGeneration( request, *args, **kwargs ):
                     new_q_name_url = new_q_name + '-url'
                     print( 'Name[ %s ] : url[ %s ]' % ( new_q_name, new_q_name_url ) )
                     desc = "This is a newly generated quiz based on your failed questions."
-                    quizCreate = Quiz.objects.create(title=new_q_name,url=new_q_name_url,category=got_cat,random_order=True,answers_at_end=True,exam_paper=True,pass_mark=55,description=desc)
+                    quizCreate = Quiz.objects.create(title=new_q_name,url=new_q_name_url,category=got_cat,random_order=True,answers_at_end=True,exam_paper=True,pass_mark=55,description=desc,max_questions=3)
                     for qn in notlinked:
                         tolink = Question.objects.get(content=qn)
                         qVal = tolink.quiz
